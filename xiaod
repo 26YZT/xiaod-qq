@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+TASK_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+if ! command -v uv >/dev/null 2>&1; then
+  printf '%s\n' '请先安装 uv：brew install uv，或查看 docs/INSTALL.md。'
+  exit 1
+fi
+exec uv run --python 3.12 --no-project "$TASK_ROOT/tools/cli.py" "$@"

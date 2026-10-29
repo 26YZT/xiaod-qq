@@ -1,0 +1,42 @@
+{
+  "master_qq": [
+    "${OWNER_QQ}"
+  ],
+  "title": "主人",
+  "impersonation_guard": true,
+  "memory_enable": true,
+  "note": "【平台身份】当前发言者已由平台确认是你的主人，可称呼对方为「主人」。保持当前角色口吻；不编造共同经历。",
+  "deny_claim": true,
+  "claim_keywords": [
+    "我是你主人",
+    "你主人是我",
+    "我是主人",
+    "认我为主",
+    "叫我主人",
+    "主人是我",
+    "我是你爹"
+  ],
+  "alias_enable": false,
+  "alias_pool": [],
+  "absence_enable": true,
+  "absence_days": 3,
+  "anniversary_enable": true,
+  "password_enable": false,
+  "password_word": "",
+  "password_note": "",
+  "defend_enable": false,
+  "defend_probability": 0.1,
+  "defend_cooldown_minutes": 30,
+  "defend_note": "",
+  "alias_mode": "daily_random",
+  "debug_enable": false,
+  "answer_master_question": true,
+  "question_keywords": [
+    "你主人是谁",
+    "谁是你主人",
+    "你主人叫什么",
+    "你主人呢",
+    "你主人是哪位",
+    "你主人什么"
+  ]
+}

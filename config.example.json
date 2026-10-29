@@ -1,0 +1,11 @@
+{
+  "bot_qq": "",
+  "owner_qq": "",
+  "group_qqs": [],
+  "deepseek_api_key": "",
+  "mimo_api_key": "",
+  "dashboard_port": 6185,
+  "onebot_port": 6199,
+  "napcat_port": 6099,
+  "private_proactive": true
+}

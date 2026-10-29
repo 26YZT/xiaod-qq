@@ -1,0 +1,8 @@
+name: astrbot_plugin_dafeiyu_chat
+display_name: 小D群聊节奏
+desc: 群聊语义接话、独立持久文字记忆与当前原生角色卡指引。
+version: 1.2.0
+author: 26YZT
+astrbot_version: '>=4.29.3'
+support_platforms:
+- aiocqhttp

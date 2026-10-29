@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MiMo Sound Studio</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="top-gradient-highlight" aria-hidden="true"></div>
+  <main class="studio-shell">
+    <header class="studio-hero">
+      <section class="hero-copy">
+        <span class="eyebrow"><span class="pulse-dot"></span> MiMo TTS</span>
+        <h1>MiMo Sound Studio</h1>
+        <div class="hero-actions">
+          <button id="save-config" class="primary">保存全部配置</button>
+          <button id="test-connection" class="secondary">一键诊断</button>
+          <span id="save-state" class="action-state">配置已同步</span>
+          <a class="ghost-link" href="https://mimo.mi.com/static/docs/quick-start/usage-guide/audio/speech-synthesis-v2.5.md" rel="noreferrer">MiMo 文档</a>
+        </div>
+      </section>
+      <aside class="hero-panel" aria-label="当前工作区概览">
+        <div class="signal-card">
+          <span>模型</span>
+          <strong id="model-status">voiceclone</strong>
+        </div>
+        <div class="signal-card">
+          <span>音色</span>
+          <strong id="hero-voice-count">0</strong>
+        </div>
+        <div class="signal-card">
+          <span>情绪路由</span>
+          <strong id="emotion-status">ON</strong>
+        </div>
+        <div class="signal-card">
+          <span>长文本</span>
+          <strong id="segment-status">ON</strong>
+        </div>
+      </aside>
+    </header>
+
+    <nav class="workspace-nav" aria-label="工作区导航">
+      <a href="#multimodel-studio">语音创作</a>
+      <a href="#voice-library">音色库</a>
+      <a href="#director-settings">演绎设置</a>
+      <a href="#delivery-settings">发送策略</a>
+      <a href="#live-tasks">实时任务</a>
+      <a href="#generation-history">生成历史</a>
+    </nav>
+    <section class="studio-card status-board" aria-label="工作台状态">
+      <div>
+        <span class="section-kicker">READINESS</span>
+        <h2>工作台状态</h2>
+      </div>
+      <div id="readiness-list" class="readiness-list"></div>
+    </section>
+
+    <section class="studio-grid connection-layout">
+      <article class="studio-card api-card span-7" id="connection-settings">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">API CONFIG</span>
+            <h2>连接配置</h2>
+          </div>
+          <span class="soft-pill">OpenAI-compatible</span>
+        </div>
+        <div class="form-grid two-col">
+          <label>API Key<input id="api-key" type="password" autocomplete="new-password" placeholder="留空保留已保存的 Key" /></label>
+          <label>Base URL<input id="base-url" type="text" /></label>
+          <label>模型<input id="model" type="text" readonly /></label>
+          <label>最大文本长度<input id="max-text-chars" type="number" min="1" /></label>
+          <label>并发数<input id="max-concurrency" type="number" min="1" /></label>
+          <label>最大音频 MB<input id="max-voice-file-mb" type="number" min="1" /></label>
+        </div>
+        <label class="wide">默认风格指令<textarea id="default-context" rows="3" placeholder="例如：自然、温柔、清晰地朗读。"></textarea></label>
+      </article>
+
+      <article class="studio-card span-5 delivery-card" id="delivery-settings">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">DELIVERY</span>
+            <h2>发送策略</h2>
+          </div>
+        </div>
+        <div class="form-grid one-col">
+          <label>回复模式
+            <select id="reply-mode">
+              <option value="audio_only">只发音频</option>
+              <option value="text_and_audio" selected>文字 + 音频</option>
+              <option value="text_only">只发文字</option>
+            </select>
+          </label>
+          <label>交付模式
+            <select id="delivery-mode">
+              <option value="background">后台生成，文字先发</option>
+              <option value="blocking">阻塞等待，兼容旧行为</option>
+            </select>
+          </label>
+          <label>音频传输
+            <select id="audio-transport">
+              <option value="shared_path">共享路径（WSL/Linux + Windows）</option>
+              <option value="base64">Base64（跨系统）</option>
+              <option value="path">本地路径（共享文件系统）</option>
+            </select>
+          </label>
+          <label>Linux 共享目录<input id="shared-path-linux" type="text" placeholder="/mnt/c/Users/Public/mimo_tts_audio" /></label>
+          <label>Windows 共享目录<input id="shared-path-windows" type="text" placeholder="C:\\Users\\Public\\mimo_tts_audio" /></label>
+          <label>Base64 每段字符数<input id="delivery-segment-chars" type="number" min="1" /></label>
+          <label>单段音频上限 MB<input id="base64-max-mb" type="number" min="1" max="40" /></label>
+          <label>后台队列容量<input id="background-queue-size" type="number" min="1" max="100" /></label>
+          <label>TTS 超时秒数<input id="tts-timeout-seconds" type="number" min="10" max="300" /></label>
+          <label>失败重试次数<input id="tts-max-retries" type="number" min="0" max="5" /></label>
+          <label>后台失败通知
+            <select id="async-failure-notice">
+              <option value="command_only">仅 /tts 命令</option>
+              <option value="always">所有任务</option>
+              <option value="never">不通知</option>
+            </select>
+          </label>
+          <label>自动语音概率<input id="auto-tts-probability" type="number" min="0" max="1" step="0.05" /></label>
+          <label>输出保留天数<input id="output-retention-days" type="number" min="0" /></label>
+          <label>最多保留文件<input id="output-max-files" type="number" min="0" /></label>
+        </div>
+        <div class="switch-stack">
+          <label class="studio-switch"><input id="auto-tts-enabled" type="checkbox" /><span>启用普通 LLM 回复自动语音化</span></label>
+          <label class="studio-switch"><input id="file-fallback-enabled" type="checkbox" /><span>语音失败时允许回退为文件</span></label>
+        </div>
+        <p id="test-hint" class="field-hint">启用真实 MiMo 联调后，诊断会生成一段短音频，用来检查 Key、模型、音色和网络。</p>
+        <p id="queue-status" class="field-hint">队列空闲</p>
+      </article>
+    </section>
+
+    <section class="studio-card runtime-card" id="reliability-settings">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">RELIABILITY</span>
+          <h2>后台可靠性</h2>
+        </div>
+        <span id="circuit-state" class="soft-pill">CLOSED</span>
+      </div>
+      <details class="advanced-settings"><summary>重试、熔断与恢复参数</summary>
+      <div class="form-grid reliability-grid">
+        <label>每分钟请求上限<input id="tts-rate-limit-rpm" type="number" min="1" max="100" /></label>
+        <label>退避起始秒数<input id="tts-retry-backoff-base-seconds" type="number" min="0.1" max="30" step="0.1" /></label>
+        <label>退避最大秒数<input id="tts-retry-backoff-max-seconds" type="number" min="0.1" max="120" step="0.1" /></label>
+        <label>熔断失败阈值<input id="circuit-failure-threshold" type="number" min="1" max="20" /></label>
+        <label>熔断恢复秒数<input id="circuit-recovery-seconds" type="number" min="5" max="600" /></label>
+        <label>恢复任务最长小时<input id="job-recovery-max-age-hours" type="number" min="1" max="168" /></label>
+        <label>任务历史条数<input id="job-history-size" type="number" min="10" max="500" /></label>
+        <label>后台音频生命周期
+          <select id="background-audio-cleanup">
+            <option value="after_delivery">发送成功后删除</option>
+            <option value="retention">按保留策略清理</option>
+          </select>
+        </label>
+      </div>
+      </details>
+      <div class="switch-grid runtime-switches">
+        <label class="studio-switch"><input id="job-persistence-enabled" type="checkbox" /><span>持久化后台任务并在重启后恢复</span></label>
+        <label class="studio-switch"><input id="platform-preflight-enabled" type="checkbox" /><span>提交前检查平台主动消息能力</span></label>
+        <label class="studio-switch"><input id="live-api-test-enabled" type="checkbox" /><span>允许执行真实 MiMo 联调测试</span></label>
+      </div>
+      <div id="runtime-diagnostics" class="runtime-diagnostics" aria-live="polite"></div>
+    </section>
+
+    <section class="studio-card task-card" id="live-tasks">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">BACKGROUND TASKS</span>
+          <h2>实时任务</h2>
+        </div>
+        <div class="task-toolbar">
+          <button id="refresh-tasks" class="secondary">刷新</button>
+          <button id="clear-task-history" class="secondary">清理历史</button>
+          <button id="cancel-all-tasks" class="danger">取消全部</button>
+        </div>
+      </div>
+      <div class="task-table-wrap">
+        <table class="task-table">
+          <thead><tr><th>状态</th><th>任务</th><th>来源</th><th>会话</th><th>内容 / 错误</th><th>操作</th></tr></thead>
+          <tbody id="task-list"></tbody>
+        </table>
+      </div>
+      <p id="task-empty" class="empty-state">暂无后台任务记录</p>
+    </section>
+
+    <section class="studio-card access-card" id="access-settings">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">AUTO TTS ACCESS</span>
+          <h2>自动语音访问控制</h2>
+        </div>
+        <span class="soft-pill">管理员优先</span>
+      </div>
+      <div class="policy-note">
+        <strong>规则顺序</strong>
+        <span>管理员 ID 永远放行；普通用户先看黑名单，再看白名单。白名单留空表示不限制。可填纯 ID，也可填完整 UMO。</span>
+      </div>
+      <div id="access-summary" class="access-summary" aria-live="polite"></div>
+      <label class="wide">管理员用户 ID<textarea id="admin-users" rows="2" placeholder="管理员不受黑白名单影响；多个用逗号或换行分隔"></textarea></label>
+      <div class="policy-grid">
+        <label>自动语音群白名单<textarea id="auto-tts-group-whitelist" rows="2" placeholder="可填群 ID，多个用逗号或换行分隔"></textarea></label>
+        <label>自动语音群黑名单<textarea id="auto-tts-group-blacklist" rows="2" placeholder="命中的群将禁用自动语音化"></textarea></label>
+        <label>自动语音私聊白名单<textarea id="auto-tts-private-whitelist" rows="2" placeholder="可填私聊 ID，多个用逗号或换行分隔"></textarea></label>
+        <label>自动语音私聊黑名单<textarea id="auto-tts-private-blacklist" rows="2" placeholder="命中的私聊将禁用自动语音化"></textarea></label>
+      </div>
+    </section>
+
+    <section class="studio-card director-card" id="director-settings">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">AI STYLE DIRECTOR</span>
+          <h2>AI 风格导演</h2>
+        </div>
+        <span class="soft-pill">隐藏控制提示</span>
+      </div>
+      <div class="switch-grid">
+        <label class="studio-switch"><input id="ai-style-director-enabled" type="checkbox" /><span>启用 AI 生成拟人化风格指令</span></label>
+        <label>AI 服务商
+          <select id="ai-style-director-provider-select">
+            <option value="">当前默认 LLM</option>
+          </select>
+        </label>
+        <label>服务商 ID<input id="ai-style-director-provider-id" type="text" placeholder="可手填 provider id；留空使用当前默认 LLM" /></label>
+        <p id="ai-provider-hint" class="field-hint">正在读取 AstrBot 已配置的 AI 服务商...</p>
+        <label>导演模式
+          <select id="ai-style-director-mode">
+            <option value="direct">只使用 AI 指令</option>
+            <option value="hybrid">保留基础指令并追加 AI 指令</option>
+          </select>
+        </label>
+        <label>最大指令长度<input id="ai-style-director-max-chars" type="number" min="20" max="300" /></label>
+        <label>正文处理<select id="director-text-mode"><option value="off">关闭导演</option><option value="instructions">只生成演绎指令</option><option value="tags">保留正文，只加演绎标签</option><option value="optimize">优化朗读文本</option></select></label>
+        <label class="studio-switch" hidden><input id="ai-style-director-optimize-text" type="checkbox" /><span>优化音频朗读文本</span></label>
+        <label class="studio-switch"><input id="ai-style-director-fallback" type="checkbox" /><span>AI 失败时回退到情绪/默认风格</span></label>
+        <label class="studio-switch"><input id="ai-style-director-debug-log" type="checkbox" /><span>在日志中显示 AI 导演结果</span></label>
+      </div>
+      <label class="wide">导演提示词模板<textarea id="ai-style-director-prompt" rows="4" placeholder="留空使用内置模板。可用变量：{max_chars}。建议输出 JSON：style_context + speech_text"></textarea></label>
+      <p class="field-hint">发送前 AI 导演会生成给 MiMo 的隐藏 user 风格指令；开启文本优化时，还会生成仅用于音频朗读的 speech_text。最终聊天文字保持原样，不会被改写。</p>
+    </section>
+
+    <section class="studio-card">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker" id="routing-heading">ROUTER</span>
+          <h2>情绪与分段</h2>
+        </div>
+      </div>
+      <div class="switch-grid">
+        <label class="studio-switch"><input id="emotion-routing-enabled" type="checkbox" /><span>启用自动情绪路由</span></label>
+        <label class="studio-switch"><input id="segment-enabled" type="checkbox" /><span>启用长文本分段</span></label>
+        <label>分段阈值<input id="segment-threshold-chars" type="number" min="1" /></label>
+        <label>最大分段数<input id="segment-max-segments" type="number" min="1" /></label>
+      </div>
+      <div id="emotion-defaults" class="emotion-grid"></div>
+    </section>
+
+    <section class="studio-card voice-workbench" id="voice-library">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">VOICE LIBRARY</span>
+          <h2>音色库</h2>
+        </div>
+        <span id="voice-count" class="soft-pill">0 个音色</span>
+      </div>
+      <div class="upload-panel">
+        <div class="drop-zone">
+          <span>上传参考音频</span>
+          <strong>mp3 / wav</strong>
+          <input id="voice-file" type="file" accept=".mp3,.wav,audio/mpeg,audio/wav" />
+        </div>
+        <div class="upload-fields">
+          <label>音色名称<input id="voice-name" type="text" placeholder="例如：温柔旁白" /></label>
+          <label>说明<input id="voice-desc" type="text" placeholder="例如：适合睡前、低语速" /></label>
+          <label>建议情绪<select id="voice-emotion">
+            <option value="">建议情绪</option>
+          </select></label>
+          <label>演绎标签<input id="voice-style-tags" type="text" placeholder="MiMo 演绎标签" /></label>
+          <label>风格指令<input id="voice-style-context" type="text" placeholder="例如：自然、轻柔" /></label>
+        </div>
+        <div class="voice-upload-actions">
+          <label class="studio-switch consent"><input id="voice-consent" type="checkbox" /><span>已获授权</span></label>
+          <button id="upload-voice" class="primary">上传音色</button>
+        </div>
+      </div>
+      <p id="upload-hint" class="field-hint">上传前请确认样本已获授权；建议使用清晰、无背景噪音的 mp3 / wav 音频。</p>
+      <div class="preview-row">
+        <input id="voice-search" type="search" aria-label="搜索音色" placeholder="搜索音色" />
+        <select id="voice-filter" aria-label="音色类型"><option value="">全部类型</option><option value="builtin">预置音色</option><option value="design">设计音色</option><option value="clone">克隆音色</option></select>
+      </div>
+      <div id="voice-list" class="voice-list"></div>
+      <div class="voice-actions library-transfer">
+        <button id="studio-export">导出全部音色与风格</button>
+        <button id="studio-export-styles">仅导出风格</button>
+        <label class="package-picker"><span>选择导入包</span><input id="studio-import-file" type="file" accept=".json,application/json" /></label>
+        <span id="studio-import-name" class="file-selection" role="status">未选择文件</span>
+        <button id="studio-import">导入</button>
+      </div>
+      <dialog id="voice-editor">
+        <form method="dialog"><button aria-label="关闭编辑" title="关闭编辑">×</button></form>
+        <h2>编辑音色</h2>
+        <input id="edit-voice-id" type="hidden" />
+        <label>名称<input id="edit-voice-name" /></label>
+        <label>说明<textarea id="edit-voice-description"></textarea></label>
+        <label>声音描述<textarea id="edit-voice-design"></textarea></label>
+        <label>默认演绎风格<textarea id="edit-voice-style"></textarea></label>
+        <label>演绎标签<input id="edit-voice-tags" /></label>
+        <button id="edit-voice-save" type="button" class="primary">保存</button>
+      </dialog>
+    </section>
+
+    <section class="studio-card" id="voice-builder">
+      <div class="section-head"><div><span class="section-kicker">VOICE DESIGN</span><h2>新建音色</h2></div></div>
+      <div class="switch-grid">
+        <label>音色类型<select id="studio-type"><option value="builtin">预置音色</option><option value="design">设计音色</option></select></label>
+        <label>音色名称<input id="studio-name" maxlength="100" /></label>
+        <label>官方音色<select id="studio-builtin"></select></label>
+        <label class="wide">声音描述<textarea id="studio-design" rows="3"></textarea></label>
+        <label class="wide">默认演绎风格<textarea id="studio-voice-style" rows="2"></textarea></label>
+      </div>
+      <button id="studio-save-voice" class="primary">保存音色</button>
+    </section>
+    <section class="studio-card" id="multimodel-studio">
+      <div class="section-head"><div><span class="section-kicker">VOICE CREATION</span><h2>语音创作</h2></div></div>
+      <div class="switch-grid">
+        <div class="creation-voice-field"><label>音色<select id="studio-voice"></select></label><button id="studio-set-sing" type="button" class="voice-default-action" hidden>设为默认唱歌音色</button></div>
+        <label>模式<select id="studio-mode"><option value="speech">朗读</option><option value="sing">唱歌</option></select></label>
+        <label>风格<select id="studio-style"></select></label>
+        <label>情绪<select id="preview-emotion"></select></label>
+        <label>设计候选数<select id="studio-candidates"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></label>
+      </div>
+      <div class="creation-toggles">
+        <label class="studio-switch"><input id="studio-draft" type="checkbox" /><span>使用未保存音色</span></label>
+        <label class="studio-switch"><input id="studio-director" type="checkbox" /><span>AI 导演</span></label>
+      </div>
+      <label>正文／歌词<textarea id="studio-text" rows="5"></textarea></label>
+      <details id="lyrics-editor">
+        <summary>歌词创作与版本</summary>
+        <div class="switch-grid">
+          <label>标题<input id="lyrics-title" maxlength="100" /></label>
+          <label>已保存版本<select id="lyrics-version"><option value="">新歌词</option></select></label>
+        </div>
+        <label>创作／改写要求<textarea id="lyrics-prompt" rows="2" maxlength="4000"></textarea></label>
+        <div class="voice-actions">
+          <button id="lyrics-draft">AI 创作／改写</button>
+          <button id="lyrics-save">保存新版本</button>
+          <button id="lyrics-load">载入版本</button>
+          <button id="lyrics-delete" class="danger">删除版本</button>
+        </div>
+      </details>
+      <label>本次演绎要求<textarea id="studio-context" rows="2"></textarea></label>
+      <div class="generation-toolbar">
+        <button id="studio-generate" class="primary">生成</button>
+        <button id="studio-cancel" disabled>取消</button>
+        <label class="studio-switch"><input id="studio-stream" type="checkbox"><span>流式试听</span></label>
+        <span id="studio-progress" role="status"></span>
+      </div>
+      <p id="preview-hint" class="field-hint"></p>
+      <audio id="studio-audio" controls hidden aria-label="生成结果"></audio>
+    </section>
+    <section class="studio-card" id="style-library">
+      <div class="section-head"><div><span class="section-kicker">STYLE LIBRARY</span><h2>风格库</h2></div></div>
+      <label>已有风格<select id="studio-style-edit"></select></label>
+      <label>名称<input id="studio-style-name" maxlength="100" /></label>
+      <label>演绎要求与示例<textarea id="studio-style-context" rows="3"></textarea></label>
+      <button id="studio-save-style">保存风格</button>
+      <button id="studio-delete-style" class="danger">删除风格</button>
+    </section>
+    <section class="studio-card" id="session-settings">
+      <div class="section-head"><div><span class="section-kicker">SESSION</span><h2>会话设置</h2></div></div>
+      <label>会话<input id="studio-session" list="studio-session-list" placeholder="平台实例:FriendMessage:用户ID" /><datalist id="studio-session-list"></datalist></label>
+      <div class="switch-grid">
+        <label>音色<select id="studio-session-voice"></select></label>
+        <label>风格<select id="studio-session-style"></select></label>
+        <label>自动语音<select id="studio-session-auto"><option value="">跟随全局</option><option value="true">开启</option><option value="false">关闭</option></select></label>
+        <label>语音概率<input id="studio-session-probability" type="number" min="0" max="1" step="0.05" /></label>
+        <label>AI 导演<select id="studio-session-director"><option value="">跟随全局</option><option value="true">开启</option><option value="false">关闭</option></select></label>
+      </div>
+      <p id="studio-session-effective" role="status"></p>
+      <button id="studio-save-session">保存会话设置</button>
+      <button id="studio-reset-session">恢复默认</button>
+    </section>
+    <section class="studio-card" id="voice-bindings">
+      <div class="section-head"><div><span class="section-kicker">VOICE BINDINGS</span><h2>音色绑定</h2></div></div>
+      <div class="switch-grid">
+        <label>范围<select id="binding-scope"><option value="global">全局</option><option value="user">用户</option><option value="group">会话</option><option value="emotion">情绪</option></select></label>
+        <label id="binding-target" hidden>目标<input id="binding-key" maxlength="256" disabled /></label>
+        <label>音色<select id="binding-voice"></select></label>
+      </div>
+      <button id="binding-save">保存绑定</button>
+      <div id="binding-list"></div>
+    </section>
+    <section class="studio-card" id="generation-history">
+      <div class="section-head"><div><span class="section-kicker">GENERATION HISTORY</span><h2>生成历史</h2></div><button id="history-clear" class="danger">清空记录</button></div>
+      <div class="switch-grid">
+        <label>记录保留条数<input id="history-max-records" type="number" min="10" max="10000" value="1000" /></label>
+        <label>记录保留天数<input id="history-retention-days" type="number" min="1" max="365" value="30" /></label>
+        <label>重发目标会话<input id="history-target" placeholder="平台实例:FriendMessage:用户ID" /></label>
+      </div>
+      <button id="history-save-policy">保存保留设置</button>
+      <div id="history-list" aria-live="polite"></div>
+      <div id="history-comparison" class="switch-grid"></div>
+      <nav class="history-pagination" aria-label="生成历史分页">
+        <button id="history-prev" title="上一页" aria-label="上一页">&#8592;</button>
+        <span id="history-page">1 / 1</span>
+        <button id="history-next" title="下一页" aria-label="下一页">&#8594;</button>
+        <span id="history-total">0 条</span>
+      </nav>
+    </section>
+  </main>
+  <div id="toast" class="toast"></div>
+  <script src="/api/plugin/page/bridge-sdk.js"></script>
+  <script src="./layout.js"></script>
+  <script src="./app.js"></script>
+  <script src="./studio.js"></script>
+</body>
+</html>

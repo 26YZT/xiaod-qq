@@ -1,0 +1,9 @@
+plugins/astrbot_plugin_context_aware/** linguist-vendored
+plugins/astrbot_plugin_master_aware/** linguist-vendored
+plugins/astrbot_plugin_worldbook/** linguist-vendored
+plugins/astrbot_plugin_mimo_tts_clone/** linguist-vendored
+plugins/meme_manager/** linguist-vendored
+plugins/astrbot_plugin_affection/** linguist-vendored
+plugins/astrbot_plugin_proactive_chat/** linguist-vendored
+locks/*.txt linguist-generated
+assets/** -text

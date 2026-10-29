@@ -1,0 +1,14 @@
+{
+  "id": "deepseek",
+  "provider": "deepseek",
+  "type": "openai_chat_completion",
+  "provider_type": "chat_completion",
+  "enable": true,
+  "key": [
+    "${DEEPSEEK_API_KEY}"
+  ],
+  "api_base": "https://api.deepseek.com/v1",
+  "timeout": 120,
+  "proxy": "",
+  "custom_headers": {}
+}

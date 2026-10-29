@@ -1,0 +1,8 @@
+name: astrbot_plugin_xiaod_voice
+display_name: 小D语音节奏
+desc: 使用MiMo音色克隆插件合成，私聊关键时刻低频语音，目标群仅明确要求时发语音。
+version: 1.4.1
+author: 26YZT
+astrbot_version: '>=4.29.3'
+support_platforms:
+- aiocqhttp

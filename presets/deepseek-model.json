@@ -1,0 +1,13 @@
+{
+  "id": "deepseek/deepseek-chat",
+  "provider_source_id": "deepseek",
+  "type": "openai_chat_completion",
+  "provider_type": "chat_completion",
+  "model": "deepseek-chat",
+  "enable": true,
+  "modalities": [
+    "text",
+    "tool_use"
+  ],
+  "custom_extra_body": {}
+}

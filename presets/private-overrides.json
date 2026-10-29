@@ -1,0 +1,90 @@
+{
+  "agent_runner": {
+    "runner_type": "local",
+    "config": {
+      "model": {
+        "provider_id": "deepseek/deepseek-chat",
+        "fallback_provider_ids": [],
+        "request_max_retries": 2
+      },
+      "persona": {
+        "persona_id": "可爱鲸鱼娘小D",
+        "safety_mode": true,
+        "safety_mode_strategy": "system_prompt"
+      },
+      "compression": {
+        "max_turns": 20,
+        "trim_turns": 1,
+        "overflow_strategy": "llm_compress",
+        "instruction": "",
+        "keep_recent_ratio": 0.15,
+        "provider_id": "",
+        "fallback_max_tokens": 128000
+      },
+      "misc": {
+        "max_steps": 128,
+        "tool_schema_mode": "full",
+        "tool_call_timeout": 120,
+        "sanitize_context_by_modalities": false
+      }
+    }
+  },
+  "platform_settings": {
+    "unique_session": true,
+    "rate_limit": {
+      "time": 60,
+      "count": 30,
+      "strategy": "stall"
+    },
+    "reply_prefix": "",
+    "forward_threshold": 1500,
+    "enable_id_white_list": true,
+    "id_whitelist": [],
+    "id_whitelist_log": true,
+    "wl_ignore_admin_on_group": true,
+    "wl_ignore_admin_on_friend": true,
+    "reply_with_mention": false,
+    "reply_with_quote": false,
+    "path_mapping": [],
+    "segmented_reply": {
+      "enable": true,
+      "only_llm_result": true,
+      "interval_method": "random",
+      "interval": "1.5,3.5",
+      "log_base": 2.6,
+      "words_count_threshold": 150,
+      "split_mode": "regex",
+      "regex": ".*?[。？！~…]+|.+$",
+      "split_words": [
+        "。",
+        "？",
+        "！",
+        "~",
+        "…"
+      ],
+      "content_cleanup_rule": ""
+    },
+    "no_permission_reply": true,
+    "empty_mention_waiting": true,
+    "empty_mention_waiting_need_reply": true,
+    "friend_message_needs_wake_prefix": false,
+    "ignore_bot_self_message": true,
+    "ignore_at_all": false
+  },
+  "wake_prefix": [
+    "/"
+  ],
+  "plugin_set": [
+    "astrbot_plugin_affection",
+    "astrbot_plugin_context_aware",
+    "astrbot_plugin_dafeiyu_chat",
+    "astrbot_plugin_master_aware",
+    "astrbot_plugin_proactive_chat",
+    "astrbot_plugin_worldbook",
+    "meme_manager",
+    "astrbot_plugin_dafeiyu_presence",
+    "astrbot_plugin_xiaod_voice",
+    "astrbot_plugin_mimo_tts_clone",
+    "astrbot_plugin_xiaod_music"
+  ]
+}

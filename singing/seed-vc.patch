@@ -1,0 +1,44 @@
+diff --git a/inference.py b/inference.py
+index 84d673b..383b87a 100644
+--- a/inference.py
++++ b/inference.py
+@@ -140,6 +140,7 @@ def load_models(args):
+ 
+         def semantic_fn(waves_16k):
+             ori_inputs = whisper_feature_extractor([waves_16k.squeeze(0).cpu().numpy()],
++                                                   sampling_rate=16000,
+                                                    return_tensors="pt",
+                                                    return_attention_mask=True)
+             ori_input_features = whisper_model._mask_input_features(
+@@ -326,8 +327,8 @@ def main(args):
+         F0_ori = f0_fn(ori_waves_16k[0], thred=0.03)
+         F0_alt = f0_fn(converted_waves_16k[0], thred=0.03)
+ 
+-        F0_ori = torch.from_numpy(F0_ori).to(device)[None]
+-        F0_alt = torch.from_numpy(F0_alt).to(device)[None]
++        F0_ori = torch.from_numpy(F0_ori).float().to(device)[None]
++        F0_alt = torch.from_numpy(F0_alt).float().to(device)[None]
+ 
+         voiced_F0_ori = F0_ori[F0_ori > 1]
+         voiced_F0_alt = F0_alt[F0_alt > 1]
+diff --git a/modules/length_regulator.py b/modules/length_regulator.py
+index a896c6c..3607095 100644
+--- a/modules/length_regulator.py
++++ b/modules/length_regulator.py
+@@ -4,7 +4,6 @@ import torch.nn as nn
+ from torch.nn import functional as F
+ from modules.commons import sequence_mask
+ import numpy as np
+-from dac.nn.quantize import VectorQuantize
+ 
+ # f0_bin = 256
+ f0_max = 1100.0
+@@ -85,6 +84,8 @@ class InterpolateRegulator(nn.Module):
+         if not is_discrete:
+             self.content_in_proj = nn.Linear(in_channels, channels)
+             if vector_quantize:
++                from dac.nn.quantize import VectorQuantize
++
+                 self.vq = VectorQuantize(channels, codebook_size, 8)
+ 
+     def forward(self, x, ylens=None, n_quantizers=None, f0=None):

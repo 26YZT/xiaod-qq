@@ -1,0 +1,1043 @@
+'use strict';
+
+const $ = id => document.getElementById(id);
+const BRIDGE_UNAVAILABLE_MESSAGE = '请在 AstrBot 插件管理页中打开本页面。普通浏览器预览只能查看 UI，不能上传、保存或试听。';
+let bridge = null;
+
+function askConfirmation(message) {
+  return new Promise(resolve => {
+    const dialog = document.createElement('dialog');
+    const text = document.createElement('p');
+    text.textContent = message;
+    const actions = document.createElement('div');
+    actions.className = 'voice-actions';
+    const cancel = document.createElement('button');
+    cancel.textContent = '取消';
+    const accept = document.createElement('button');
+    accept.textContent = '确认';
+    accept.className = 'primary';
+    const finish = value => { dialog.close(); dialog.remove(); resolve(value); };
+    cancel.addEventListener('click', () => finish(false));
+    accept.addEventListener('click', () => finish(true));
+    dialog.addEventListener('cancel', event => { event.preventDefault(); finish(false); });
+    actions.append(cancel, accept);
+    dialog.append(text, actions);
+    document.body.append(dialog);
+    dialog.showModal();
+    cancel.focus();
+  });
+}
+
+function fallbackBridge() {
+  return {
+    ready: async () => ({}),
+    apiGet: async () => ({ success: false, error: BRIDGE_UNAVAILABLE_MESSAGE }),
+    apiPost: async () => ({ success: false, error: BRIDGE_UNAVAILABLE_MESSAGE }),
+    upload: async () => ({ success: false, error: BRIDGE_UNAVAILABLE_MESSAGE }),
+  };
+}
+
+function getAstrBotBridge() {
+  return window.AstrBotPluginPage || null;
+}
+
+function isUsableBridge(candidate) {
+  return Boolean(
+    candidate &&
+    typeof candidate.apiGet === 'function' &&
+    typeof candidate.apiPost === 'function' &&
+    typeof candidate.upload === 'function'
+  );
+}
+
+async function waitForAstrBotBridge(timeoutMs = 2000, intervalMs = 50) {
+  const startedAt = Date.now();
+  return new Promise(resolve => {
+    const tick = () => {
+      const candidate = getAstrBotBridge();
+      if (isUsableBridge(candidate)) {
+        resolve(candidate);
+        return;
+      }
+      if (Date.now() - startedAt >= timeoutMs) {
+        resolve(null);
+        return;
+      }
+      setTimeout(tick, intervalMs);
+    };
+    tick();
+  });
+}
+
+async function resolveBridge() {
+  return await waitForAstrBotBridge() || fallbackBridge();
+}
+
+let state = {
+  config: {},
+  voices: [],
+  defaults: {},
+  emotions: ['happy', 'sad', 'angry', 'neutral'],
+  providers: [],
+  readiness: {},
+  accessControl: {},
+  queueStatus: {},
+  tasks: [],
+};
+let lastUploadedVoiceId = '';
+
+function toast(message, type = 'ok') {
+  const el = $('toast');
+  el.textContent = message;
+  el.className = `toast ${type}`;
+  el.style.display = 'block';
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => { el.style.display = 'none'; }, 3000);
+}
+
+function extractErrorMessage(error, fallback = '操作失败') {
+  const data = error && error.response && error.response.data;
+  if (data && data.error) return data.error;
+  if (data && data.message) return data.message;
+  if (error && error.data && error.data.error) return error.data.error;
+  return String((error && error.message) || error || fallback);
+}
+
+function setActionState(message, type = 'idle') {
+  const el = $('save-state');
+  el.textContent = message;
+  el.className = `action-state ${type}`;
+}
+
+function markDirty() {
+  setActionState('有未保存更改', 'is-dirty');
+}
+
+function markClean() {
+  setActionState('配置已同步', 'is-clean');
+}
+
+function setUploadHint(message, type = 'info') {
+  const el = $('upload-hint');
+  el.textContent = message;
+  el.className = `field-hint ${type}`;
+}
+
+function setPreviewHint(message, type = 'info') {
+  const el = $('preview-hint');
+  el.textContent = message;
+  el.className = `field-hint ${type}`;
+}
+
+function setBusy(button, busy, busyText = '处理中...') {
+  if (!button) return;
+  if (busy) {
+    button.dataset.idleText = button.textContent;
+    button.textContent = busyText;
+    button.disabled = true;
+    button.classList.add('is-busy');
+    button.setAttribute('aria-busy', 'true');
+    return;
+  }
+  button.textContent = button.dataset.idleText || button.textContent;
+  button.disabled = false;
+  button.classList.remove('is-busy');
+  button.removeAttribute('aria-busy');
+}
+
+async function runAction(button, busyText, handler) {
+  setBusy(button, true, busyText);
+  try {
+    await handler();
+  } catch (error) {
+    toast(extractErrorMessage(error), 'err');
+  } finally {
+    setBusy(button, false);
+    updateActionAvailability();
+  }
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function isVoiceUsable(voice) {
+  return Boolean(voice && voice.enabled !== false &&
+    ((voice.type && voice.type !== 'clone') || voice.consent_confirmed === true));
+}
+
+function configPayload() {
+  return {
+    director_text_mode: $('director-text-mode').value,
+    api_key: $('api-key').value.trim(),
+    base_url: $('base-url').value.trim(),
+    default_context: $('default-context').value,
+    max_text_chars: Number($('max-text-chars').value || 2500),
+    max_concurrency: Number($('max-concurrency').value || 2),
+    max_voice_file_mb: Number($('max-voice-file-mb').value || 10),
+    reply_mode: $('reply-mode').value,
+    delivery_mode: $('delivery-mode').value,
+    audio_transport: $('audio-transport').value,
+    shared_path_linux: $('shared-path-linux').value.trim(),
+    shared_path_windows: $('shared-path-windows').value.trim(),
+    delivery_segment_chars: Number($('delivery-segment-chars').value || 500),
+    base64_max_mb: Number($('base64-max-mb').value || 8),
+    background_queue_size: Number($('background-queue-size').value || 20),
+    tts_timeout_seconds: Number($('tts-timeout-seconds').value || 120),
+    tts_max_retries: Number($('tts-max-retries').value || 2),
+    tts_rate_limit_rpm: Number($('tts-rate-limit-rpm').value || 90),
+    tts_retry_backoff_base_seconds: Number($('tts-retry-backoff-base-seconds').value || 1),
+    tts_retry_backoff_max_seconds: Number($('tts-retry-backoff-max-seconds').value || 15),
+    circuit_failure_threshold: Number($('circuit-failure-threshold').value || 5),
+    circuit_recovery_seconds: Number($('circuit-recovery-seconds').value || 60),
+    async_failure_notice: $('async-failure-notice').value,
+    job_persistence_enabled: $('job-persistence-enabled').checked,
+    job_recovery_max_age_hours: Number($('job-recovery-max-age-hours').value || 24),
+    job_history_size: Number($('job-history-size').value || 100),
+    background_audio_cleanup: $('background-audio-cleanup').value,
+    platform_preflight_enabled: $('platform-preflight-enabled').checked,
+    live_api_test_enabled: $('live-api-test-enabled').checked,
+    auto_tts_enabled: $('auto-tts-enabled').checked,
+    auto_tts_probability: Number($('auto-tts-probability').value || 0),
+    auto_tts_group_whitelist: $('auto-tts-group-whitelist').value,
+    auto_tts_group_blacklist: $('auto-tts-group-blacklist').value,
+    auto_tts_private_whitelist: $('auto-tts-private-whitelist').value,
+    auto_tts_private_blacklist: $('auto-tts-private-blacklist').value,
+    admin_users: $('admin-users').value,
+    file_fallback_enabled: $('file-fallback-enabled').checked,
+    output_retention_days: Number($('output-retention-days').value || 0),
+    output_max_files: Number($('output-max-files').value || 0),
+    emotion_routing_enabled: $('emotion-routing-enabled').checked,
+    ai_style_director_enabled: $('ai-style-director-enabled').checked,
+    ai_style_director_provider_id: $('ai-style-director-provider-id').value.trim(),
+    ai_style_director_prompt: $('ai-style-director-prompt').value,
+    ai_style_director_mode: $('ai-style-director-mode').value,
+    ai_style_director_max_chars: Number($('ai-style-director-max-chars').value || 120),
+    ai_style_director_optimize_text: $('ai-style-director-optimize-text').checked,
+    ai_style_director_fallback_to_emotion: $('ai-style-director-fallback').checked,
+    ai_style_director_debug_log: $('ai-style-director-debug-log').checked,
+    segment_enabled: $('segment-enabled').checked,
+    segment_threshold_chars: Number($('segment-threshold-chars').value || 2500),
+    segment_max_segments: Number($('segment-max-segments').value || 6),
+  };
+}
+
+function fillEmotionSelect(select, includeAuto = false) {
+  select.innerHTML = '';
+  if (includeAuto) {
+    const auto = document.createElement('option');
+    auto.value = '';
+    auto.textContent = '自动';
+    select.appendChild(auto);
+  }
+  state.emotions.forEach(emotion => {
+    const option = document.createElement('option');
+    option.value = emotion;
+    option.textContent = emotion;
+    select.appendChild(option);
+  });
+}
+
+function renderProviderSelect() {
+  const select = $('ai-style-director-provider-select');
+  const hint = $('ai-provider-hint');
+  const current = $('ai-style-director-provider-id').value.trim();
+  select.innerHTML = '<option value="">当前默认 LLM</option>';
+  state.providers.forEach(provider => {
+    const option = document.createElement('option');
+    option.value = provider.id;
+    option.textContent = provider.label || provider.name || provider.id;
+    select.appendChild(option);
+  });
+  if (current && !state.providers.some(provider => provider.id === current)) {
+    const custom = document.createElement('option');
+    custom.value = current;
+    custom.textContent = `手填：${current}`;
+    select.appendChild(custom);
+  }
+  select.value = current;
+  if (state.providers.length) {
+    hint.textContent = `已读取到 ${state.providers.length} 个 AstrBot AI 服务商；留空则使用当前默认 LLM。`;
+    hint.className = 'field-hint ok';
+  } else {
+    hint.textContent = '未读取到 AstrBot AI 服务商。可先确认 AstrBot 已启用聊天模型，或在右侧手填 provider id。';
+    hint.className = 'field-hint warn';
+  }
+}
+
+function updateStatus() {
+  $('model-status').textContent = 'TTS / Design / Clone';
+  $('emotion-status').textContent = state.config.emotion_routing_enabled === false ? 'OFF' : 'ON';
+  $('segment-status').textContent = state.config.segment_enabled === false ? 'OFF' : 'ON';
+  $('hero-voice-count').textContent = String(state.voices.length);
+  const queue = state.queueStatus || {};
+  const lastError = queue.last_error ? ` · 最近错误 ${queue.last_error}` : '';
+  $('queue-status').textContent = `队列 ${queue.queued_jobs || 0} · 运行 ${queue.running_jobs || 0} · 完成 ${queue.completed_jobs || 0} · 失败 ${queue.failed_jobs || 0} · 取消 ${queue.cancelled_jobs || 0} · 恢复 ${queue.recovered_jobs || 0} · 丢弃 ${queue.dropped_jobs || 0} · 平均 ${queue.average_latency_seconds || 0}s${lastError}`;
+  renderRuntimeDiagnostics();
+}
+
+async function refreshQueueStatus() {
+  if (!bridge) return;
+  try {
+    const payload = await bridge.apiGet('get_tts_tasks');
+    if (!payload || payload.success === false) return;
+    state.queueStatus = payload.queue_status || {};
+    state.tasks = payload.tasks || [];
+    updateStatus();
+    renderTasks();
+  } catch (_error) {
+    // Queue polling is best-effort and must not disturb configuration editing.
+  }
+}
+
+function renderRuntimeDiagnostics() {
+  const queue = state.queueStatus || {};
+  const circuit = String(queue.circuit_state || 'closed').toUpperCase();
+  $('circuit-state').textContent = circuit;
+  $('circuit-state').className = `soft-pill circuit-${String(queue.circuit_state || 'closed')}`;
+  const platforms = queue.platforms || [];
+  const platformText = platforms.length
+    ? platforms.map(item => `${item.name || item.id}: ${item.proactive ? '主动消息可用' : '不支持主动消息'}`).join('；')
+    : '平台能力未知，运行时会尝试发送';
+  const diagnostics = [
+    ['请求', `${queue.attempts || 0} 次，重试 ${queue.retries || 0} 次`],
+    ['限流', `${queue.rate_limit_rpm || 0} RPM，等待 ${queue.rate_limit_wait_count || 0} 次`],
+    ['熔断', `${circuit}，连续失败 ${queue.circuit_failures || 0}，恢复等待 ${queue.circuit_retry_after_seconds || 0}s`],
+    ['任务存储', queue.persistence_enabled ? `已启用，最长恢复 ${queue.recovery_max_age_hours || 0}h` : '未启用'],
+    ['音频清理', queue.audio_cleanup === 'retention' ? '按保留策略' : '发送成功后删除'],
+    ['平台', platformText],
+  ];
+  $('runtime-diagnostics').innerHTML = diagnostics.map(([label, value]) => `
+    <div><strong>${escapeHtml(label)}</strong><span>${escapeHtml(value)}</span></div>
+  `).join('');
+}
+
+function renderTasks() {
+  const tasks = state.tasks || [];
+  $('task-empty').hidden = tasks.length > 0;
+  $('task-list').innerHTML = tasks.map(task => {
+    const active = ['queued', 'running', 'delivering'].includes(task.status);
+    const recovered = task.recovered ? '<span class="task-flag">恢复</span>' : '';
+    const failureStage = task.failure_stage === 'delivery' ? '发送未确认' : '生成失败';
+    const error = task.error ? `<small class="task-error">${failureStage}：${escapeHtml(task.error)}</small>` : '';
+    return `
+      <tr>
+        <td><span class="task-status status-${escapeHtml(task.status)}">${escapeHtml(task.status)}</span>${recovered}</td>
+        <td><code>${escapeHtml(task.id)}</code></td>
+        <td>${escapeHtml(task.source)}</td>
+        <td class="task-session">${escapeHtml(task.session)}</td>
+        <td><span>${escapeHtml(task.text_preview)}</span>${error}</td>
+        <td>${active ? `<button class="task-cancel" data-job-id="${escapeHtml(task.id)}">取消</button>` : task.status === 'failed' ? `<button class="task-retry" data-job-id="${escapeHtml(task.id)}">重试</button>` : ''}</td>
+      </tr>`;
+  }).join('');
+}
+
+async function cancelTask(jobId) {
+  const result = await bridge.apiPost('cancel_tts_task', { job_id: jobId });
+  if (!result.success) throw new Error(result.error || '取消任务失败');
+  state.tasks = result.tasks || [];
+  state.queueStatus = result.queue_status || {};
+  updateStatus();
+  renderTasks();
+  toast(`任务 ${jobId} 已取消`);
+}
+
+async function clearTasks(includeActive) {
+  const result = await bridge.apiPost('clear_tts_tasks', { include_active: includeActive });
+  if (!result.success) throw new Error(result.error || '清理任务失败');
+  state.tasks = result.tasks || [];
+  state.queueStatus = result.queue_status || {};
+  updateStatus();
+  renderTasks();
+  toast(`已处理 ${result.affected || 0} 项任务`);
+}
+
+function resetCancelAllConfirmation() {
+  const button = $('cancel-all-tasks');
+  clearTimeout(button._confirmTimeout);
+  button.dataset.confirming = 'false';
+  button.textContent = '取消全部';
+}
+
+async function confirmCancelAllTasks() {
+  const button = $('cancel-all-tasks');
+  if (button.dataset.confirming !== 'true') {
+    button.dataset.confirming = 'true';
+    button.textContent = '再次点击确认';
+    button._confirmTimeout = setTimeout(resetCancelAllConfirmation, 3000);
+    toast('再次点击将取消排队和运行中的全部任务', 'warn');
+    return;
+  }
+  resetCancelAllConfirmation();
+  await clearTasks(true);
+}
+
+function renderReadiness() {
+  const readiness = state.readiness || {};
+  const enabledVoices = state.voices.filter(isVoiceUsable).length;
+  const hasPreviewText = Boolean($('studio-text').value.trim());
+  const hasPreviewVoice = Boolean($('studio-voice').value);
+  const previewReady = Boolean(enabledVoices && hasPreviewText && hasPreviewVoice);
+  const items = [
+    {
+      title: 'API Key',
+      ok: readiness.api_key,
+      detail: readiness.api_key ? '已保存，可请求 MiMo。' : '未保存，试听和自动语音会失败。',
+    },
+    {
+      title: '音色库',
+      ok: readiness.voices,
+      detail: enabledVoices ? `${enabledVoices} 个可用音色。` : '先上传并启用至少一个授权音色。',
+    },
+    {
+      title: 'AI 导演',
+      ok: !state.config.ai_style_director_enabled || readiness.ai_director,
+      warn: state.config.ai_style_director_enabled && !readiness.ai_director,
+      detail: state.config.ai_style_director_enabled
+        ? (readiness.ai_director ? '已启用，会生成隐藏风格和朗读文本。' : '已启用，但未识别到可用 AI 服务商。')
+        : '未启用，使用情绪/音色风格。',
+    },
+    {
+      title: '试听',
+      ok: previewReady,
+      warn: !previewReady,
+      detail: previewReady ? '已就绪，可以生成预览音频。' : previewDisabledReason(),
+    },
+  ];
+
+  $('readiness-list').innerHTML = items.map(item => `
+    <article class="readiness-item ${item.ok ? 'is-ok' : item.warn ? 'is-warn' : ''}">
+      <strong>${escapeHtml(item.title)}</strong>
+      <span>${escapeHtml(item.detail)}</span>
+    </article>
+  `).join('');
+}
+
+function renderAccessControl() {
+  const access = state.accessControl || {};
+  const items = [
+    {
+      title: '管理员',
+      detail: (access.admins && access.admins.detail) || '未配置管理员',
+      count: access.admins ? access.admins.count : 0,
+    },
+    {
+      title: '群聊',
+      detail: (access.group && access.group.detail) || '未设置群聊名单，默认放行',
+      count: ((access.group && access.group.whitelist_count) || 0) + ((access.group && access.group.blacklist_count) || 0),
+    },
+    {
+      title: '私聊',
+      detail: (access.private && access.private.detail) || '未设置私聊名单，默认放行',
+      count: ((access.private && access.private.whitelist_count) || 0) + ((access.private && access.private.blacklist_count) || 0),
+    },
+  ];
+
+  $('access-summary').innerHTML = `
+    <div class="access-summary-core">
+      <strong>当前规则预览</strong>
+      <span>${escapeHtml(access.summary || '管理员优先放行；黑名单优先于白名单；白名单留空表示不限制。')}</span>
+    </div>
+    <div class="access-summary-list">
+      ${items.map(item => `
+        <article class="${item.count ? 'is-active' : ''}">
+          <b>${escapeHtml(item.title)}</b>
+          <span>${escapeHtml(item.detail)}</span>
+        </article>
+      `).join('')}
+    </div>
+  `;
+}
+
+function previewDisabledReason() {
+  if (!state.voices.some(isVoiceUsable)) return '需要先上传并启用已授权音色。';
+  if (!$('studio-voice').value && !$('studio-draft').checked) return '请选择一个试听音色。';
+  if (!$('studio-text').value.trim()) return '请输入试听文本。';
+  return '准备中，请稍候。';
+}
+
+function updateActionAvailability() {
+  const uploadFile = $('voice-file').files[0];
+  const hasName = Boolean($('voice-name').value.trim());
+  const hasConsent = $('voice-consent').checked;
+  $('upload-voice').disabled = !(uploadFile && hasName && hasConsent);
+
+  if (!uploadFile) {
+    setUploadHint('先选择一段已授权的 mp3 / wav 参考音频。');
+  } else if (!hasName) {
+    setUploadHint(`已选择 ${uploadFile.name}，请填写音色名称，方便后续在指令和情绪路由里识别。`, 'warn');
+  } else if (!hasConsent) {
+    setUploadHint(`已选择 ${uploadFile.name}，请确认已获得声音使用授权后再上传。`, 'warn');
+  } else {
+    const sizeMb = (uploadFile.size / 1024 / 1024).toFixed(2);
+    setUploadHint(`准备就绪：${uploadFile.name}，${sizeMb}MB。上传后会自动加入音色库并选中用于试听。`, 'ok');
+  }
+
+  const canPreview = Boolean(
+    $('studio-text').value.trim() &&
+    ($('studio-voice').value || $('studio-draft').checked)
+  );
+  if (!$('studio-generate').classList.contains('is-busy')) $('studio-generate').disabled = !canPreview;
+  if (typeof updateSingDefaultAvailability === 'function') updateSingDefaultAvailability();
+  $('test-connection').disabled = !$('live-api-test-enabled').checked;
+  setPreviewHint(
+    canPreview
+      ? '试听已就绪；开启 AI 导演时，这次试听也会走隐藏导演链路。'
+      : previewDisabledReason(),
+    canPreview ? 'ok' : 'warn'
+  );
+  renderReadiness();
+}
+
+function applyState(payload) {
+  $('director-text-mode').value = payload.config?.director_text_mode || 'optimize';
+  state.config = payload.config || {};
+  state.voices = payload.voices || [];
+  state.defaults = payload.defaults || {};
+  state.emotions = payload.emotions || state.emotions;
+  state.readiness = payload.readiness || {};
+  state.accessControl = payload.access_control || {};
+  state.queueStatus = payload.queue_status || {};
+  state.tasks = payload.tasks || [];
+
+  $('api-key').value = '';
+  $('base-url').value = state.config.base_url || 'https://api.xiaomimimo.com/v1';
+  $('model').value = '由所选音色决定';
+  $('default-context').value = state.config.default_context || '';
+  $('max-text-chars').value = state.config.max_text_chars || 2500;
+  $('max-concurrency').value = state.config.max_concurrency || 2;
+  $('max-voice-file-mb').value = state.config.max_voice_file_mb || 10;
+  $('reply-mode').value = state.config.reply_mode || 'text_and_audio';
+  $('delivery-mode').value = state.config.delivery_mode || 'background';
+  $('audio-transport').value = state.config.audio_transport || 'base64';
+  if (window.syncStudioTransportFields) window.syncStudioTransportFields();
+  $('shared-path-linux').value = state.config.shared_path_linux || '/mnt/c/Users/Public/mimo_tts_audio';
+  $('shared-path-windows').value = state.config.shared_path_windows || 'C:\\Users\\Public\\mimo_tts_audio';
+  $('delivery-segment-chars').value = state.config.delivery_segment_chars || 500;
+  $('base64-max-mb').value = state.config.base64_max_mb || 8;
+  $('background-queue-size').value = state.config.background_queue_size || 20;
+  $('tts-timeout-seconds').value = state.config.tts_timeout_seconds || 120;
+  $('tts-max-retries').value = state.config.tts_max_retries ?? 2;
+  $('tts-rate-limit-rpm').value = state.config.tts_rate_limit_rpm ?? 90;
+  $('tts-retry-backoff-base-seconds').value = state.config.tts_retry_backoff_base_seconds ?? 1;
+  $('tts-retry-backoff-max-seconds').value = state.config.tts_retry_backoff_max_seconds ?? 15;
+  $('circuit-failure-threshold').value = state.config.circuit_failure_threshold ?? 5;
+  $('circuit-recovery-seconds').value = state.config.circuit_recovery_seconds ?? 60;
+  $('async-failure-notice').value = state.config.async_failure_notice || 'command_only';
+  $('job-persistence-enabled').checked = state.config.job_persistence_enabled !== false;
+  $('job-recovery-max-age-hours').value = state.config.job_recovery_max_age_hours ?? 24;
+  $('job-history-size').value = state.config.job_history_size ?? 100;
+  $('background-audio-cleanup').value = state.config.background_audio_cleanup || 'after_delivery';
+  $('platform-preflight-enabled').checked = state.config.platform_preflight_enabled !== false;
+  $('live-api-test-enabled').checked = state.config.live_api_test_enabled === true;
+  $('auto-tts-enabled').checked = state.config.auto_tts_enabled === true;
+  $('auto-tts-probability').value = state.config.auto_tts_probability ?? 0;
+  $('auto-tts-group-whitelist').value = (state.config.auto_tts_group_whitelist || []).join('\n');
+  $('auto-tts-group-blacklist').value = (state.config.auto_tts_group_blacklist || []).join('\n');
+  $('auto-tts-private-whitelist').value = (state.config.auto_tts_private_whitelist || []).join('\n');
+  $('auto-tts-private-blacklist').value = (state.config.auto_tts_private_blacklist || []).join('\n');
+  $('admin-users').value = (state.config.admin_users || []).join('\n');
+  $('file-fallback-enabled').checked = state.config.file_fallback_enabled !== false;
+  $('output-retention-days').value = state.config.output_retention_days ?? 7;
+  $('output-max-files').value = state.config.output_max_files ?? 100;
+  $('emotion-routing-enabled').checked = state.config.emotion_routing_enabled !== false;
+  $('ai-style-director-enabled').checked = state.config.ai_style_director_enabled === true;
+  $('ai-style-director-provider-id').value = state.config.ai_style_director_provider_id || '';
+  renderProviderSelect();
+  $('ai-style-director-prompt').value = state.config.ai_style_director_prompt || '';
+  $('ai-style-director-mode').value = state.config.ai_style_director_mode || 'direct';
+  $('ai-style-director-max-chars').value = state.config.ai_style_director_max_chars || 120;
+  $('ai-style-director-optimize-text').checked = state.config.ai_style_director_optimize_text !== false;
+  $('ai-style-director-fallback').checked = state.config.ai_style_director_fallback_to_emotion !== false;
+  $('ai-style-director-debug-log').checked = state.config.ai_style_director_debug_log !== false;
+  $('segment-enabled').checked = state.config.segment_enabled !== false;
+  $('segment-threshold-chars').value = state.config.segment_threshold_chars || 2500;
+  $('segment-max-segments').value = state.config.segment_max_segments || 6;
+
+  fillEmotionSelect($('voice-emotion'), true);
+  fillEmotionSelect($('preview-emotion'), true);
+  updateStatus();
+  renderTasks();
+  renderEmotionDefaults();
+  renderVoices();
+  renderReadiness();
+  renderAccessControl();
+  markClean();
+  updateActionAvailability();
+}
+
+function renderEmotionDefaults() {
+  const wrap = $('emotion-defaults');
+  wrap.innerHTML = '';
+  const defaults = state.defaults.emotion_defaults || {};
+
+  state.emotions.forEach(emotion => {
+    const selected = defaults[emotion] || '';
+    const options = ['<option value="">未设置</option>'].concat(
+      state.voices.filter(isVoiceUsable).map(voice => (
+        `<option value="${voice.id}" ${voice.id === selected ? 'selected' : ''}>${escapeHtml(voice.name)}</option>`
+      ))
+    ).join('');
+
+    const card = document.createElement('div');
+    card.className = 'emotion-card';
+    card.innerHTML = `
+      <strong>${emotion}</strong>
+      <span class="voice-meta">${selected ? '已绑定情绪默认音色' : '跟随用户/群/全局默认'}</span>
+      <select data-emotion="${emotion}">${options}</select>
+    `;
+    wrap.appendChild(card);
+  });
+}
+
+function renderVoices() {
+  $('voice-count').textContent = `${state.voices.length} 个音色`;
+  const list = $('voice-list');
+  const select = $('studio-voice');
+  const selectedVoice = select.value;
+  list.innerHTML = '';
+  select.innerHTML = '';
+
+  if (!state.voices.length) {
+    list.innerHTML = '<div class="empty-state">暂无音色</div>';
+    select.innerHTML = '<option value="">暂无音色</option>';
+    renderEmotionDefaults();
+    return;
+  }
+
+  state.voices.forEach(voice => {
+    const isDefault = voice.id === state.defaults.global_default_voice_id;
+    const disabled = !isVoiceUsable(voice);
+    const emotionDefaults = Object.entries(state.defaults.emotion_defaults || {})
+      .filter(([, voiceId]) => voiceId === voice.id)
+      .map(([emotion]) => emotion);
+
+    const card = document.createElement('div');
+    card.className = `voice-card${disabled ? ' is-disabled' : ''}`;
+    const query = $('voice-search').value.trim().toLowerCase();
+    const type = $('voice-filter').value;
+    card.hidden = Boolean((type && (voice.type || 'clone') !== type) ||
+      (query && !`${voice.name} ${voice.description} ${voice.id}`.toLowerCase().includes(query)));
+    card.innerHTML = `
+      <div>
+        <div class="voice-title">
+          <span>${escapeHtml(voice.name)}</span>
+          ${isDefault ? '<span class="tag">全局默认</span>' : ''}
+          ${disabled ? '<span class="tag">已禁用</span>' : ''}
+        </div>
+        <div class="voice-meta"><span class="tag voice-kind">${escapeHtml({builtin: '预置音色', design: '设计音色', clone: '克隆音色'}[voice.type || 'clone'] || '未知类型')}</span> ${escapeHtml(voice.description || '无说明')}${(voice.type || 'clone') === 'clone' && !voice.consent_confirmed ? ' · 未确认授权，不可合成' : ''}</div>
+        <details class="voice-identifiers"><summary>音色详情</summary><code>${escapeHtml(voice.id)}</code></details>
+      </div>
+      <div class="tag-row">
+        <span class="tag">建议情绪：${escapeHtml(voice.emotion || '未设置')}</span>
+        <span class="tag">情绪默认：${escapeHtml(emotionDefaults.join(', ') || '无')}</span>
+        ${voice.style_tags ? `<span class="tag">标签：${escapeHtml(voice.style_tags)}</span>` : ''}
+      </div>
+      <div class="voice-meta">风格指令：${escapeHtml(voice.style_context || '无')}</div>
+      <div class="voice-actions">
+        <button data-action="edit" data-id="${voice.id}">编辑</button>
+        <button data-action="duplicate" data-id="${voice.id}">复制</button>
+        ${isDefault ? '' : `<button data-action="default" data-id="${voice.id}">设为默认</button>`}
+        <button data-action="toggle" data-id="${voice.id}">${disabled ? '启用' : '禁用'}</button>
+        <button class="danger" data-action="delete" data-id="${voice.id}">删除</button>
+      </div>
+    `;
+    list.appendChild(card);
+
+    if (isVoiceUsable(voice)) {
+      const option = document.createElement('option');
+      option.value = voice.id;
+      option.textContent = voice.name;
+      select.appendChild(option);
+    }
+  });
+  if (lastUploadedVoiceId && state.voices.some(voice => voice.id === lastUploadedVoiceId)) {
+    select.value = lastUploadedVoiceId;
+    lastUploadedVoiceId = '';
+  } else if ([...select.options].some(option => option.value === selectedVoice)) {
+    select.value = selectedVoice;
+  }
+  updateActionAvailability();
+}
+
+async function refresh() {
+  const [payload, providersPayload] = await Promise.all([
+    bridge.apiGet('get_config'),
+    bridge.apiGet('list_ai_providers').catch(() => ({ success: false, providers: [] })),
+  ]);
+  if (!payload.success) throw new Error(payload.error || '加载配置失败');
+  state.providers = providersPayload && providersPayload.success ? providersPayload.providers || [] : [];
+  applyState(payload);
+}
+
+async function saveConfig() {
+  const res = await bridge.apiPost('save_config', configPayload());
+  if (!res.success) throw new Error(res.error || '保存失败');
+  state.config = res.config || state.config;
+  if (res.warning) {
+    updateStatus();
+    markClean();
+    setActionState('配置已保存到插件本地文件', 'is-dirty');
+    toast(res.warning, 'warn');
+    return;
+  }
+  await refresh();
+  toast('配置已保存');
+}
+
+function validateVoiceUpload() {
+  const file = $('voice-file').files[0];
+  const name = $('voice-name').value.trim();
+  if (!file) throw new Error('请选择音频文件');
+  if (!/\.(mp3|wav)$/i.test(file.name)) throw new Error('只支持 mp3 / wav 音频');
+  if (file.size > Number($('max-voice-file-mb').value || 10) * 1024 * 1024) {
+    throw new Error('音频文件超过大小限制');
+  }
+  if (!name) throw new Error('请填写音色名称');
+  if (!$('voice-consent').checked) throw new Error('请先确认已获得声音使用授权');
+  return { file, name };
+}
+
+function voiceMetadataPayload(name) {
+  return {
+    name,
+    description: $('voice-desc').value.trim(),
+    emotion: $('voice-emotion').value,
+    style_tags: $('voice-style-tags').value.trim(),
+    style_context: $('voice-style-context').value.trim(),
+    consent_confirmed: $('voice-consent').checked ? 'true' : 'false',
+  };
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = String(reader.result || '');
+      resolve(result.includes(',') ? result.split(',', 2)[1] : result);
+    };
+    reader.onerror = () => reject(new Error('读取音频文件失败'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadVoiceSample(file, metadata) {
+  try {
+    return await bridge.upload('upload_voice_sample', file);
+  } catch (error) {
+    setUploadHint('常规上传遇到网络错误，正在切换兼容上传...', 'warn');
+    const audioBase64 = await readFileAsBase64(file);
+    return await bridge.apiPost('upload_voice_sample_json', {
+      filename: file.name,
+      audio_base64: audioBase64,
+      ...metadata,
+    });
+  }
+}
+
+async function syncVoiceMetadata(voiceId, metadata) {
+  const res = await bridge.apiPost('update_voice', {
+    voice_id: voiceId,
+    ...metadata,
+  });
+  if (!res.success) throw new Error(res.error || '元数据同步失败');
+}
+
+async function uploadVoice() {
+  const { file, name } = validateVoiceUpload();
+  const metadata = voiceMetadataPayload(name);
+
+  const res = await uploadVoiceSample(file, metadata);
+  if (!res.success || !res.voice) throw new Error(res.error || '上传失败');
+  lastUploadedVoiceId = res.voice.id;
+
+  try {
+    await syncVoiceMetadata(res.voice.id, metadata);
+  } catch (error) {
+    toast(`音色已上传，但元数据同步失败：${error.message || error}`, 'warn');
+  }
+
+  ['voice-file', 'voice-name', 'voice-desc', 'voice-style-tags', 'voice-style-context'].forEach(id => {
+    $(id).value = '';
+  });
+  $('voice-emotion').value = '';
+  $('voice-consent').checked = false;
+  try {
+    await refresh();
+    setUploadHint('音色已上传，并已自动选中用于试听。', 'ok');
+    toast('音色已上传');
+  } catch (error) {
+    setUploadHint('音色已上传，但刷新列表失败；请手动刷新页面查看。', 'warn');
+    toast(`音色已上传，但刷新列表失败：${error.message || error}`, 'warn');
+  }
+}
+
+function resetDeleteConfirmation(button) {
+  if (!button) return;
+  clearTimeout(button._confirmTimeout);
+  button.dataset.confirming = 'false';
+  button.textContent = button.dataset.originalText || '删除';
+  button.classList.remove('confirming');
+}
+
+async function voiceAction(action, id, button = null) {
+  if (action === 'edit') {
+    const voice = state.voices.find(item => item.id === id);
+    $('edit-voice-id').value = id;
+    $('edit-voice-name').value = voice.name;
+    $('edit-voice-description').value = voice.description || '';
+    $('edit-voice-design').value = voice.design_prompt || '';
+    $('edit-voice-design').disabled = voice.type !== 'design';
+    $('edit-voice-style').value = voice.style_context || '';
+    $('edit-voice-tags').value = voice.style_tags || '';
+    $('voice-editor').showModal();
+    return;
+  }
+  if (action === 'duplicate') {
+    await studioPost('duplicate_voice', {id});
+    await refresh();
+    await studioRefresh();
+    return;
+  }
+  const voice = state.voices.find(item => item.id === id);
+  if (!voice) return;
+  let lockedButton = null;
+  if (button && action !== 'delete') {
+    lockedButton = button;
+    setBusy(lockedButton, true, '处理中...');
+  }
+
+  try {
+    if (action === 'default') {
+      const res = await bridge.apiPost('set_default_voice', { scope: 'global', voice_id: id });
+      if (!res.success) throw new Error(res.error || '设置默认失败');
+    } else if (action === 'toggle') {
+      const res = await bridge.apiPost('update_voice', { voice_id: id, enabled: !voice.enabled });
+      if (!res.success) throw new Error(res.error || '更新失败');
+    } else if (action === 'delete') {
+      if (!button) throw new Error('删除按钮状态不可用，请刷新页面后重试');
+      if (button.dataset.confirming !== 'true') {
+        button.dataset.confirming = 'true';
+        button.dataset.originalText = button.textContent;
+        button.textContent = '确定删除？';
+        button.classList.add('confirming');
+        button._confirmTimeout = setTimeout(() => resetDeleteConfirmation(button), 3000);
+        toast(`再次点击确认删除「${voice.name}」`, 'warn');
+        return;
+      }
+      resetDeleteConfirmation(button);
+      lockedButton = button;
+      setBusy(lockedButton, true, '删除中...');
+      let res = await bridge.apiPost('delete_voice', { voice_id: id });
+      if (res.requires_confirmation && await askConfirmation(res.error)) {
+        res = await bridge.apiPost('delete_voice', {voice_id: id, clear_references: true});
+      }
+      if (!res.success) throw new Error(res.error || '删除失败');
+    }
+
+    await refresh();
+  } finally {
+    if (lockedButton && document.body.contains(lockedButton)) {
+      setBusy(lockedButton, false);
+    }
+  }
+}
+
+async function setEmotionDefault(emotion, voiceId) {
+  const res = await bridge.apiPost('set_emotion_voice', { emotion, voice_id: voiceId });
+  if (!res.success) throw new Error(res.error || '设置情绪默认音色失败');
+  await refresh();
+  toast(voiceId ? `${emotion} 默认音色已更新` : `${emotion} 默认音色已清空`);
+}
+
+async function testConnection() {
+  let res;
+  try {
+    res = await bridge.apiPost('test_connection', {
+      voice_id: $('studio-voice').value,
+      text: '连接测试，声音工作正常。',
+    });
+  } catch (error) {
+    $('test-hint').textContent = extractErrorMessage(error, '连接诊断失败');
+    $('test-hint').className = 'field-hint warn';
+    throw error;
+  }
+  if (!res.success) {
+    $('test-hint').textContent = res.error || '连接诊断失败';
+    $('test-hint').className = 'field-hint warn';
+    throw new Error(res.error || '连接诊断失败');
+  }
+  $('test-hint').textContent = `${res.message || '连接测试成功'} 耗时 ${res.elapsed_ms || 0}ms。`;
+  $('test-hint').className = 'field-hint ok';
+  toast('连接诊断通过');
+}
+
+function bind(id, handler, busyText = '处理中...') {
+  $(id).addEventListener('click', event => {
+    runAction(event.currentTarget, busyText, handler);
+  });
+}
+
+function bindConfigDirtyState() {
+  $('director-text-mode').addEventListener('change', markDirty);
+  [
+    'api-key',
+    'base-url',
+    'default-context',
+    'max-text-chars',
+    'max-concurrency',
+    'max-voice-file-mb',
+    'reply-mode',
+    'delivery-mode',
+    'background-queue-size',
+    'tts-timeout-seconds',
+    'tts-max-retries',
+    'tts-rate-limit-rpm',
+    'tts-retry-backoff-base-seconds',
+    'tts-retry-backoff-max-seconds',
+    'circuit-failure-threshold',
+    'circuit-recovery-seconds',
+    'async-failure-notice',
+    'job-persistence-enabled',
+    'job-recovery-max-age-hours',
+    'job-history-size',
+    'background-audio-cleanup',
+    'platform-preflight-enabled',
+    'live-api-test-enabled',
+    'auto-tts-enabled',
+    'auto-tts-probability',
+    'auto-tts-group-whitelist',
+    'auto-tts-group-blacklist',
+    'auto-tts-private-whitelist',
+    'auto-tts-private-blacklist',
+    'admin-users',
+    'file-fallback-enabled',
+    'output-retention-days',
+    'output-max-files',
+    'emotion-routing-enabled',
+    'ai-style-director-enabled',
+    'ai-style-director-provider-select',
+    'ai-style-director-provider-id',
+    'ai-style-director-prompt',
+    'ai-style-director-mode',
+    'ai-style-director-max-chars',
+    'ai-style-director-optimize-text',
+    'ai-style-director-fallback',
+    'ai-style-director-debug-log',
+    'segment-enabled',
+    'segment-threshold-chars',
+    'segment-max-segments',
+  ].forEach(id => {
+    const el = $(id);
+    el.addEventListener('input', markDirty);
+    el.addEventListener('change', markDirty);
+  });
+}
+
+function bindActionAvailability() {
+  [
+    'voice-file',
+    'voice-name',
+    'voice-consent',
+    'studio-voice',
+    'studio-text',
+    'studio-draft',
+    'live-api-test-enabled',
+  ].forEach(id => {
+    const el = $(id);
+    el.addEventListener('input', updateActionAvailability);
+    el.addEventListener('change', updateActionAvailability);
+  });
+}
+
+function bindProviderSelect() {
+  $('ai-style-director-provider-select').addEventListener('change', event => {
+    $('ai-style-director-provider-id').value = event.target.value;
+    markDirty();
+  });
+  $('ai-style-director-provider-id').addEventListener('input', renderProviderSelect);
+}
+
+async function init() {
+  bridge = await resolveBridge();
+  await bridge.ready();
+  $('voice-search').addEventListener('input', renderVoices);
+  $('voice-filter').addEventListener('change', renderVoices);
+  bind('edit-voice-save', async () => {
+    await studioPost('update_voice', {
+      id: $('edit-voice-id').value, name: $('edit-voice-name').value,
+      description: $('edit-voice-description').value,
+      design_prompt: $('edit-voice-design').value,
+      style_context: $('edit-voice-style').value, style_tags: $('edit-voice-tags').value,
+    });
+    $('voice-editor').close();
+    await refresh();
+    await studioRefresh();
+  });
+  bind('save-config', saveConfig, '保存中...');
+  bind('upload-voice', uploadVoice, '上传中...');
+  bind('test-connection', testConnection, '诊断中...');
+  bind('refresh-tasks', refreshQueueStatus, '刷新中...');
+  bind('clear-task-history', () => clearTasks(false), '清理中...');
+  bind('cancel-all-tasks', confirmCancelAllTasks, '取消中...');
+  bindConfigDirtyState();
+  bindActionAvailability();
+  bindProviderSelect();
+  updateActionAvailability();
+
+  $('voice-list').addEventListener('click', async event => {
+    const button = event.target.closest('button[data-action]');
+    if (!button) return;
+    try {
+      await voiceAction(button.dataset.action, button.dataset.id, button);
+    } catch (error) {
+      toast(extractErrorMessage(error), 'err');
+    }
+  });
+
+  $('emotion-defaults').addEventListener('change', async event => {
+    const select = event.target.closest('select[data-emotion]');
+    if (!select) return;
+    try {
+      await setEmotionDefault(select.dataset.emotion, select.value);
+    } catch (error) {
+      toast(extractErrorMessage(error), 'err');
+    }
+  });
+
+  $('task-list').addEventListener('click', async event => {
+    const button = event.target.closest('button[data-job-id]');
+    if (!button) return;
+    if (button.classList.contains('task-retry')) {
+      if (!await askConfirmation('确认重试？生成失败可能重新计费；若上次发送状态不确定，可能重复发送。')) return;
+      await runAction(button, '重试中...', async () => {
+        const result = await bridge.apiPost('retry_tts_task', {job_id: button.dataset.jobId, confirm: true});
+        if (!result.success) throw new Error(result.error || '重试失败');
+        state.tasks = result.tasks || [];
+        state.queueStatus = result.queue_status || {};
+        updateStatus();
+        renderTasks();
+      });
+    } else {
+      await runAction(button, '取消中...', () => cancelTask(button.dataset.jobId));
+    }
+  });
+
+  await refresh();
+  if (typeof initStudio === 'function') await initStudio();
+  window.setInterval(refreshQueueStatus, 5000);
+}
+
+function startSettings() {
+  init().catch(error => toast(extractErrorMessage(error), 'err'));
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startSettings, {once: true});
+} else {
+  startSettings();
+}

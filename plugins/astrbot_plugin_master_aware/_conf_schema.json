@@ -1,0 +1,165 @@
+{
+  "master_qq": {
+    "description": "主人 QQ 号列表",
+    "type": "list",
+    "hint": "支持多个。只有这些 QQ 会被当作主人，其他人自称主人不算数。",
+    "default": []
+  },
+  "title": {
+    "description": "对主人的称呼",
+    "type": "string",
+    "hint": "注入说明里会用到，也会出现在消息前缀里。比如「主人」「头儿」或直接叫名字。",
+    "default": "主人"
+  },
+  "impersonation_guard": {
+    "description": "防冒充",
+    "type": "bool",
+    "hint": "开启后，会提醒模型：除名单外的人自称主人不算数，可以拆穿。",
+    "default": true
+  },
+  "memory_enable": {
+    "description": "注入主人记忆",
+    "type": "bool",
+    "hint": "开启后，每轮从记忆里挑最多 3 条与当前消息相关的贴进去。",
+    "default": true
+  },
+  "note": {
+    "description": "身份说明模板",
+    "type": "text",
+    "hint": "可用 {qq} 和 {title} 占位符。留空使用内置默认。",
+    "default": ""
+  },
+  "deny_claim": {
+    "description": "群友冒充主人时纠正",
+    "type": "bool",
+    "hint": "开启后，非主人说「我是你主人」这类话时，会注入一条纠正提示，避免模型乱认或编造主人在不在场。",
+    "default": true
+  },
+  "claim_keywords": {
+    "description": "冒充判定关键词",
+    "type": "list",
+    "hint": "消息里出现这些词且发送者不是主人时，触发纠正。",
+    "default": [
+      "我是你主人",
+      "你主人是我",
+      "我是主人",
+      "认我为主",
+      "叫我主人",
+      "主人是我",
+      "我是你爹"
+    ]
+  },
+  "alias_enable": {
+    "description": "称呼轮换",
+    "type": "bool",
+    "hint": "按认识天数从称呼池里轮换，关掉则一直用 title。",
+    "default": true
+  },
+  "alias_pool": {
+    "description": "称呼池",
+    "type": "list",
+    "hint": "例如 主人 / 头儿 / 喂。留空则只用 title。",
+    "default": []
+  },
+  "absence_enable": {
+    "description": "久别重逢",
+    "type": "bool",
+    "hint": "隔了几天没说话时，提示模型自然提一句。",
+    "default": true
+  },
+  "absence_days": {
+    "description": "重逢阈值（天）",
+    "type": "int",
+    "hint": "超过这个天数才提示。",
+    "default": 3
+  },
+  "anniversary_enable": {
+    "description": "认主纪念日",
+    "type": "bool",
+    "hint": "第 100 / 365 / 730 / 1000 天时提一句。",
+    "default": true
+  },
+  "password_enable": {
+    "description": "暗号",
+    "type": "bool",
+    "hint": "开启后，主人说出暗号会切换成更私密的语气。",
+    "default": false
+  },
+  "password_word": {
+    "description": "暗号内容",
+    "type": "string",
+    "hint": "只有主人说出这个词才生效。",
+    "default": ""
+  },
+  "password_note": {
+    "description": "暗号触发的提示",
+    "type": "text",
+    "hint": "留空用内置文案。",
+    "default": ""
+  },
+  "defend_enable": {
+    "description": "护短",
+    "type": "bool",
+    "hint": "有人 @ 主人且语气不客气时，按概率让模型护一句。默认关闭。",
+    "default": false
+  },
+  "defend_probability": {
+    "description": "护短概率",
+    "type": "float",
+    "hint": "0~1，建议 0.1 以下。",
+    "default": 0.1
+  },
+  "defend_cooldown_minutes": {
+    "description": "护短冷却（分钟）",
+    "type": "int",
+    "hint": "两次护短之间至少隔多久。",
+    "default": 30
+  },
+  "defend_note": {
+    "description": "护短提示",
+    "type": "text",
+    "hint": "留空用内置文案。",
+    "default": ""
+  },
+  "alias_mode": {
+    "description": "称呼选择方式",
+    "type": "string",
+    "options": [
+      "daily_random",
+      "daily_rotate",
+      "message_random"
+    ],
+    "labels": [
+      "每天随机一个（同一天固定）",
+      "按天数顺序轮换",
+      "每条消息随机"
+    ],
+    "default": "daily_random",
+    "hint": "daily_random 更像人：每天换一个，但当天不会来回变。"
+  },
+  "debug_enable": {
+    "description": "调试日志",
+    "type": "bool",
+    "hint": "开启后把每次注入的内容写到插件数据目录的 debug.log，仅供排查。",
+    "default": false
+  },
+  "answer_master_question": {
+    "description": "被问「你主人是谁」时给出事实",
+    "type": "bool",
+    "hint": "开启后，非主人问起你的主人，会注入真实 QQ 号，避免模型编造「主人不在群里」。",
+    "default": true
+  },
+  "question_keywords": {
+    "description": "提问判定关键词",
+    "type": "list",
+    "hint": "消息里出现这些词时，按「在问主人」处理。",
+    "default": [
+      "你主人是谁",
+      "谁是你主人",
+      "你主人叫什么",
+      "你主人呢",
+      "你主人是哪位",
+      "你主人什么"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "enabled": false,
+  "dry_run": true,
+  "platform_id": "qq-personal",
+  "account_id": "${BOT_QQ}",
+  "owner_id": "${OWNER_QQ}",
+  "persona_id": "可爱鲸鱼娘小D",
+  "qzone_enabled": false,
+  "qzone_weekdays": "tue,thu,sat",
+  "qzone_time": "19:30",
+  "signature_enabled": false,
+  "signature_sync_off_confirmed": false,
+  "signature_time": "09:30",
+  "public_lore_names": [
+    "海玻璃的小收藏",
+    "饭团的海苔小讲究",
+    "雨天的小消遣",
+    "解谜时的小较劲",
+    "小抽屉的收纳哲学",
+    "取名字的小偏心",
+    "突然被吓到的嘴硬"
+  ]
+}

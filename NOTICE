@@ -1,0 +1,10 @@
+XiaoD QQ companion integration kit
+Copyright (c) 2026 26YZT
+
+This repository contains original integration code and third-party source
+snapshots. Third-party authors retain their copyrights and licenses.
+See docs/THIRD_PARTY.md and the LICENSE files in the component directories.
+
+Audio, images, video, datasets and model weights have separate terms.
+See assets/ASSET-LICENSE.md. The repository does not distribute QQ account
+sessions, service credentials, private conversations or completed song caches.

@@ -1,0 +1,35 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.10.7'
+      - name: Install fixed AstrBot and plugin bundle
+        run: ./xiaod install
+      - name: Public configuration and publication boundary
+        working-directory: runtime/astrbot
+        run: .venv/bin/python -m unittest discover -s ../../tests
+      - name: Group, voice, music and optional social controls
+        working-directory: runtime/astrbot
+        run: >-
+          .venv/bin/python -m unittest
+          data.plugins.astrbot_plugin_dafeiyu_chat.tests.test_chat
+          data.plugins.astrbot_plugin_dafeiyu_chat.tests.test_group_memory
+          data.plugins.astrbot_plugin_xiaod_voice.tests.test_voice
+          data.plugins.astrbot_plugin_xiaod_music.tests.test_music
+          data.plugins.astrbot_plugin_dafeiyu_presence.tests.test_presence
+      - name: Publication audit
+        run: uv run --python 3.12 --no-project tools/audit_public.py

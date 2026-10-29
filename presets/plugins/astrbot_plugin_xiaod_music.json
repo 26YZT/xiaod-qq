@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "private_sessions": [
+    "qq-personal:FriendMessage:${OWNER_QQ}"
+  ],
+  "group_sessions": "${GROUP_SESSIONS}",
+  "default_full_source": true,
+  "online_accompaniment_enabled": true,
+  "account_id": "${BOT_QQ}",
+  "owner_id": "${OWNER_QQ}",
+  "platform_id": "qq-personal"
+}

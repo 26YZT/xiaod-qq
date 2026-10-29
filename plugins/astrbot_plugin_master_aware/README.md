@@ -1,0 +1,119 @@
+# astrbot_plugin_master_aware · 认主
+
+> 让机器人认得「谁在跟自己说话」，并记住关于主人的事。
+
+## 这解决什么问题
+
+AstrBot 的模型**看不到发送者的 QQ 号**。所以如果你在人格里写「我的主人是 123456」，
+它只是知道「存在一个主人」，并不知道**眼前这个人是不是主人**——被问到时很容易答「没有主人」或装傻。
+
+这个插件在每次 LLM 请求前，比对发送者 QQ 与配置里的主人名单，命中就注入身份说明。
+
+## 为什么不能只写 system prompt
+
+最初的版本只把说明追加到 `system_prompt` 末尾，结果：
+
+- 人设动辄几千字，说明被淹没在末尾；
+- 前面几轮对话说过「我没有主人」，模型会顺着这个惯性继续答。
+
+所以现在用官方推荐的临时内容块注入：
+
+```python
+part = TextPart(text=block)
+part = part.mark_as_temp()          # 标记为临时，不写入历史
+req.extra_user_content_parts.append(part)
+```
+
+**不改 `system_prompt`，也不改写用户原始消息**——这两样都是缓存前缀的一部分，
+每轮变动会破坏缓存命中，也会污染上下文。临时内容块只在当次请求里出现。
+
+> 4.0.0 之前用的是「追加 system_prompt + 前插 prompt」，已被审核指出会破坏缓存，
+> 现版本已改掉。
+
+## 3.0 新增
+
+- **称呼轮换**：`alias_pool` 里放几个称呼，按认识天数轮换；关掉则一直用 `title`。
+- **久别重逢**：隔 `absence_days` 天没说话，会提示模型自然提一句「好久没见」。
+- **认主纪念日**：第 100 / 365 / 730 / 1000 天时提一句。
+- **暗号**：主人说出 `password_word` 会切换成更私密的语气（默认关闭）。
+- **护短**：有人 @ 主人且语气不客气时，按 `defend_probability` 概率让模型护一句，带冷却（默认关闭）。
+- **`/认主 档案`**：认识多少天、最近一次说话、记忆条数。
+
+## 2.0 新增
+
+- **防冒充**：会提醒模型「除名单外的人自称主人不算数，可以拆穿」；
+  群友说「我是你主人」时也会注入纠正，避免它乱认、或编造「主人不在群里」。
+- **称呼可配**：`title` 决定它叫你什么（主人 / 头儿 / 名字）。
+- **主人记忆**：把关于主人的事存成 JSON，每轮按关键词挑最多 3 条贴进消息，不会整段塞 prompt。
+- **指令**：`/认主` 查看状态，`/认主 记住 <内容>`、`/认主 忘记 <关键词>` 手动管理。
+
+## 安装
+
+插件市场搜索「认主」安装，或：
+
+```bash
+cd AstrBot/data/plugins
+git clone https://github.com/QuanWander/astrbot_plugin_master_aware
+```
+
+安装后在 **WebUI → 插件 → 认主 → 配置** 里填写主人 QQ 号，重启 AstrBot。
+
+## 配置
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `master_qq` | list | 主人 QQ 号，可多个；只有名单里的会被当作主人 |
+| `title` | string | 对主人的称呼，默认「主人」 |
+| `impersonation_guard` | bool | 防冒充提示，默认开 |
+| `memory_enable` | bool | 是否注入记忆，默认开 |
+| `note` | text | 身份说明模板，可用 `{qq}` `{title}`，留空用内置 |
+| `deny_claim` | bool | 群友自称主人时注入纠正，默认开 |
+| `claim_keywords` | list | 冒充判定关键词 |
+| `answer_master_question` | bool | 被问「你主人是谁」时给出真实 QQ，默认开 |
+| `question_keywords` | list | 提问判定关键词 |
+| `alias_enable` / `alias_pool` / `alias_mode` | bool / list / string | 称呼轮换及其模式 |
+| `absence_enable` / `absence_days` | bool / int | 久别重逢提示 |
+| `anniversary_enable` | bool | 认主纪念日 |
+| `password_enable` / `password_word` | bool / string | 暗号（默认关） |
+| `defend_enable` / `defend_probability` / `defend_cooldown_minutes` | bool / float / int | 护短（默认关） |
+| `debug_enable` | bool | 调试日志，写入插件数据目录，默认关 |
+
+> 4.0.0 起不再支持自定义数据路径，所有文件固定放在
+> `data/plugin_data/astrbot_plugin_master_aware/`。
+
+## 指令
+
+```
+/认主                    查看称呼、名单、记忆条数
+/认主 档案               认识天数、最近一次说话
+/认主 预览               不经过模型，直接看会注入什么
+/认主 记住 他对花生过敏   手动记一条
+/认主 忘记 花生          删除包含关键词的记忆
+```
+
+需要管理员权限（AstrBot 配置里的 `admins_id`）。
+
+## 记忆文件
+
+`AstrBot/data/plugin_data/astrbot_plugin_master_aware/memory.json`
+
+```json
+{
+  "entries": [
+    {"id": "a1b2c3d4", "text": "他喜欢喝美式，不加糖", "created_at": "2026-10-22 09:15:32.458"}
+  ]
+}
+```
+
+- 最多保留 100 条，超出时丢最早的；
+- 记忆文件损坏不会导致插件崩溃，会当作空列表处理；
+- 也可以直接改这个文件，改完不用重启。
+
+## 成本
+
+每轮只额外消耗约 80~150 token（身份说明 + 最多 3 条记忆）。
+如果嫌多，可以把 `memory_enable` 关掉，只剩身份注入（约 60 token）。
+
+## License
+
+MIT

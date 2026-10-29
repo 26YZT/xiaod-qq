@@ -1,0 +1,16 @@
+[project]
+name = "xiaod-qq-kit"
+version = "0.1.0"
+description = "Reproducible AstrBot + NapCat QQ companion kit"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

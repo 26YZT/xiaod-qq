@@ -1,0 +1,52 @@
+{
+  "enabled": {
+    "description": "启用小D语音（参考音频就绪后开启）",
+    "type": "bool",
+    "default": false
+  },
+  "private_sessions": {
+    "description": "允许语音回复的私聊会话",
+    "type": "list",
+    "default": []
+  },
+  "group_sessions": {
+    "description": "允许明确请求语音的群会话",
+    "type": "list",
+    "default": []
+  },
+  "private_moments_enabled": {
+    "description": "私聊关键时刻偶尔使用语音",
+    "type": "bool",
+    "default": true
+  },
+  "private_auto_cooldown_minutes": {
+    "description": "私聊自选语音的最短间隔分钟（明确要求不受限）",
+    "type": "int",
+    "default": 30
+  },
+  "private_auto_daily_limit": {
+    "description": "每天私聊自选语音次数上限（明确要求不计入）",
+    "type": "int",
+    "default": 3
+  },
+  "synthesis_deadline_seconds": {
+    "description": "语音合成总等待上限秒数（10～40，超时使用该轮原文回复文字）",
+    "type": "int",
+    "default": 25
+  },
+  "account_id": {
+    "type": "string",
+    "description": "托管机器人QQ号，首次配置自动填写",
+    "default": ""
+  },
+  "owner_id": {
+    "type": "string",
+    "description": "允许主动联系与管理点歌的主人QQ号",
+    "default": ""
+  },
+  "platform_id": {
+    "type": "string",
+    "description": "AstrBot平台ID",
+    "default": "qq-personal"
+  }
+}

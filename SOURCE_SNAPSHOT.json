@@ -1,0 +1,1958 @@
+{
+  "release": "0.1.0",
+  "date": "2026-10-29",
+  "components_lock": "sources.lock.json",
+  "private_runtime_included": false,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "20fac4b1cad782ef3a0efe5da6fb233bf241485f5ea452b9d516c2d4dc78fb4b",
+      "bytes": 430
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "ab069a1d02ba875d6fa22e57c84aad1094974f66ce834083374a826752e6304a",
+      "bytes": 1146
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "cd697a046dbb3c13f9d35883ba9014ae1eeec814476c0d19205ab7b7fd1df396",
+      "bytes": 141
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "ccf7d08f932af3e813848881731113afbb7c80d0fd6d958e8d319002bf344d02",
+      "bytes": 34500
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "2360aba9041d6f36b959847e4e97774cccc99f18f76236a4ace6e033f334a621",
+      "bytes": 505
+    },
+    {
+      "path": "README.md",
+      "sha256": "017b1ef6eccb3a87ec3cca5aa9af55ff4a0406808b9f807dc12f4df79518f023",
+      "bytes": 7969
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "f80d56c91972ec1dd848326f0b09426ff065be7e531fe0670ae5b0791ef4e86c",
+      "bytes": 642
+    },
+    {
+      "path": "assets/ASSET-LICENSE.md",
+      "sha256": "cb5b1287e77bee49d2337c95d4f4733da04a6cc02873901abd07d3852762138b",
+      "bytes": 1460
+    },
+    {
+      "path": "assets/banner.png",
+      "sha256": "84b1df47eaa1a9af28f36715aa21528369c377c57682a7137d28b2cea2b3a715",
+      "bytes": 1817982
+    },
+    {
+      "path": "assets/media/demo-poster.jpg",
+      "sha256": "ca7944b9f2aa61430f204be2f6561af2db31a0c7e6b19e66b988f781d7b15cc8",
+      "bytes": 63594
+    },
+    {
+      "path": "assets/media/preview.gif",
+      "sha256": "164bdddf48d602857b1b1c6433518ed61dd056acd9aa7c69989041d7acdd7cae",
+      "bytes": 1660140
+    },
+    {
+      "path": "assets/media/qq-demo.mp4",
+      "sha256": "37c0bd6dc1303a50b502908a2fc11ba331d3f368cc8f71d720274d6d08c2aa6a",
+      "bytes": 2190939
+    },
+    {
+      "path": "assets/voices/C.wav",
+      "sha256": "fa0d788b7acce2682f0c2c805a8a9a7a0f2f4f4fa5a43f45295a01e528df006f",
+      "bytes": 514604
+    },
+    {
+      "path": "assets/voices/F.wav",
+      "sha256": "351281cbb5b3c2e60d8102f2bc4e98ac7a80a7f9f1a30e18bfc6b716d306df9f",
+      "bytes": 752684
+    },
+    {
+      "path": "assets/voices/G.wav",
+      "sha256": "e205e1ef7874d3ed56c5235c7ff1374287765eb82abc6a59e50a024db3f6ca8c",
+      "bytes": 721964
+    },
+    {
+      "path": "assets/voices/H.wav",
+      "sha256": "32a4da7e7d676bbec6a134b9094d5976e6e4d150e7b2a2d4fe2bc56958a79e68",
+      "bytes": 668204
+    },
+    {
+      "path": "assets/voices/I.wav",
+      "sha256": "a3bd0957bad41ce8ba0574defaa7606b35affb44f6733e47f8e9f2b461029f1c",
+      "bytes": 806444
+    },
+    {
+      "path": "assets/voices/L.wav",
+      "sha256": "7940eb2e9270ac58cd955e6271af217d405269f190bfd167e1489292afcd60af",
+      "bytes": 668204
+    },
+    {
+      "path": "assets/welcome.png",
+      "sha256": "fd50a55c4832ef42f409ad43dbe1c0c63630a82e59d42e1a253da3d4bc73f386",
+      "bytes": 1873368
+    },
+    {
+      "path": "config.example.json",
+      "sha256": "7c7f3797c2c67571837d664bf1391fdf50acc8d956d862c1f0ae67158ac20a42",
+      "bytes": 205
+    },
+    {
+      "path": "docs/CONFIGURATION.md",
+      "sha256": "394980e77ba3dc12439116f545654597387782e74c742e8a3f07754d9d12239c",
+      "bytes": 4044
+    },
+    {
+      "path": "docs/FAQ.md",
+      "sha256": "c245fc4e1fa8e9d4021159a65dfa533026737e441af9f9f1bfd9a177076c18a3",
+      "bytes": 2321
+    },
+    {
+      "path": "docs/INSTALL.md",
+      "sha256": "5c1c8aa296d2501f6efa139df1b2e3f7a24d3f4e82606279139c51ece923dbb7",
+      "bytes": 4047
+    },
+    {
+      "path": "docs/MEDIA.md",
+      "sha256": "a4ea228a78191c9bf905160993a53bc401f6a3f34bfcfa8614b9549c1506684f",
+      "bytes": 2801
+    },
+    {
+      "path": "docs/THIRD_PARTY.md",
+      "sha256": "be05ba953421cfe78411a1753a44ef5fc74a1f553279e7d6c63f04b0882e870b",
+      "bytes": 3730
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "sha256": "1ebd4f67f484e65fe6fea113aae63106284aacfa2821dd4dec0fae98536fbae3",
+      "bytes": 3256
+    },
+    {
+      "path": "install.command",
+      "sha256": "17808711cf182a3a17e6908e391e667906afcc3500203486999e255dfbd274e3",
+      "bytes": 371
+    },
+    {
+      "path": "locks/plugins.in",
+      "sha256": "68361f66ccb7d4842fda3b126749add8f6baddd694722a50075a68a58dc19553",
+      "bytes": 239
+    },
+    {
+      "path": "locks/runtime.txt",
+      "sha256": "747c1ebc41c9c6dfcdae2fe636545a21787af0312fa401ed97b1ae5cdf24d29a",
+      "bytes": 284412
+    },
+    {
+      "path": "locks/separation.in",
+      "sha256": "ab956a74226bb19ef883383c9574af082bdd708adab9e870d241e63cbe970242",
+      "bytes": 350
+    },
+    {
+      "path": "locks/separation.txt",
+      "sha256": "323dd2c14bcbd281e31189b67e0cedc19905bf665fc4ab146479c60ae3ba71ba",
+      "bytes": 118479
+    },
+    {
+      "path": "locks/singing.in",
+      "sha256": "64bcb9c473955a4b80190bafa708576587f9fa04a13bbfd98d061a94455001a1",
+      "bytes": 211
+    },
+    {
+      "path": "locks/singing.txt",
+      "sha256": "20758230c5bcea3eb0175691c82acb3d1c574a90313c6785f4582c69a44ef515",
+      "bytes": 128942
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/.gitignore",
+      "sha256": "48b33f9f89ef24f8a66f461ea9278e7ecf21b4660c26088989d231e53c578724",
+      "bytes": 4688
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/LICENSE",
+      "sha256": "f440d399276dcbd8a845dee6e873a54c1f59ff44b502b45f3bc9352224ed5789",
+      "bytes": 34531
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/README.md",
+      "sha256": "e9ef4a0b2511f6ec23b780472ca7c0c044c83e1c8cbde8e8837a3ab331a9c986",
+      "bytes": 17227
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/_conf_schema.json",
+      "sha256": "ffc0b595b6217b1d92b4f3be4ab632bc63b84abafc8ed497864c9949bb758b90",
+      "bytes": 2751
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/decay.py",
+      "sha256": "6499d697d5c0b2c43110f398cbdea8b0ac20407baba4e4af8f8f5d2ed05e9cd7",
+      "bytes": 7802
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/emotion_tables.py",
+      "sha256": "9800237337b93e3c8842735888bd3fcae70f229a8b24585f1052efc83f1c67e6",
+      "bytes": 13232
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/main.py",
+      "sha256": "113d3d172bc7e3f4daacb5c8f28c6b2efa0697bba3a8e95936e15cabc667c73b",
+      "bytes": 26603
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/metadata.yaml",
+      "sha256": "eb78340d2dcb94ecaeb2381b92c516a1bd0a43fa9cda1e14e9a406765386577d",
+      "bytes": 805
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/storage.py",
+      "sha256": "33310044959ae4d1402b2ea0dcc32fa0a61057ae2e39a9d5e27c1ca066340527",
+      "bytes": 5812
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/unconscious.py",
+      "sha256": "ff1827a510f771a4eae5e1f7ee34d0bf0fa7286a395d0176eb138022d9deac72",
+      "bytes": 10748
+    },
+    {
+      "path": "plugins/astrbot_plugin_affection/utils.py",
+      "sha256": "013f7802de9fad9e9791abb740f93367033d6440b9b67c5b0baf9eda24d14aad",
+      "bytes": 5429
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/.github/workflows/ci.yml",
+      "sha256": "a2835e5cba95a179cd8b079e640743c829b7ab56f0fee382f74ae15f72466650",
+      "bytes": 575
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/.gitignore",
+      "sha256": "282924d8b8c8db3a1c30793ee77424f46bfd02a49620e84aebf1876150138bf2",
+      "bytes": 41
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/CHANGELOG.md",
+      "sha256": "ab42567b6bb324892e2fae8a7acdc89f3734cc1bdbfd97c86e3345691c7753d3",
+      "bytes": 12659
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/LICENSE",
+      "sha256": "d5f30fd646433e1c320c0405b740af8f869aa52b71a6334f012f3b5f42e635b5",
+      "bytes": 1066
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/README.md",
+      "sha256": "1d683bcaa3dfbf6ca27e2a7bc1097933896e3fe1ad9f21a105a9cef0f60a70ec",
+      "bytes": 22944
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/_conf_schema.json",
+      "sha256": "0780f39f1e9dae0751d7c0a50ca33139063551a9561d8b88b8c4dd77e585e2ea",
+      "bytes": 27222
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/assets/plugin_group_qr.jpg",
+      "sha256": "7435db32905e20395a44cd24d242f8816987ecdd43d9f0b4f3262f1433fe4c86",
+      "bytes": 261018
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/audio_transcribe.py",
+      "sha256": "09bc13636a03bea9b47b67d39e060324c4847f0f84dcbe09f85b3641c148124d",
+      "bytes": 5663
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/gif_frames.py",
+      "sha256": "82d7e5ab9054ffd5ca9e940b8adf7a5d287aac0b786ecbc66f0e0adcd867c828",
+      "bytes": 12719
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/image_compression.py",
+      "sha256": "b613fe6762630650d97f8f4201213c1ffaf7877fcfc375c462c595d3c7e99572",
+      "bytes": 11786
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/image_context.py",
+      "sha256": "21799e184781c5d6d0957825a1c61b6a72acdc21cd5e8b1178a2c829c9bff057",
+      "bytes": 24243
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/image_reference_api.py",
+      "sha256": "aa7943324f63144fbdadc088786978d8367442ce6ff085854803ce1a10a0bf0f",
+      "bytes": 7611
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/logo.png",
+      "sha256": "66894b518158151a2094832e1e980efa8acc23453a4b6491f86fce75e6cb188b",
+      "bytes": 162111
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/main.py",
+      "sha256": "1844388e069063df27f6154b8fe5abb71dc0522e286db461ac1bbe19378bb432",
+      "bytes": 191865
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/metadata.yaml",
+      "sha256": "515746b34333f4f0deba00287ea5051f583fb72357d0a62a9395d246c6c776b3",
+      "bytes": 1963
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/model_capability.py",
+      "sha256": "cc9371b38ce8fc6201ddd2e3c5071867bd846f289d3610bdc3d71bf3c5a19c9b",
+      "bytes": 2907
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/private_topic.py",
+      "sha256": "048fb9b052ef90c3455e3ba03a7a170647f2cd5458086defaadc80ccb90050ed",
+      "bytes": 29231
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/requirements-test.txt",
+      "sha256": "e295b733b3684ec615717039211a9a8c26ec5064e6da96707b9e4ee983d6bb24",
+      "bytes": 51
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/requirements.txt",
+      "sha256": "cdcf61e58a860a633a95bd277038899d1a9611a8e3fb0c2799b770887e6a85d0",
+      "bytes": 35
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/ruff.toml",
+      "sha256": "876ccc66909d90275d70fecc6aa4fc38f51d86a5545562275c970cc3fe49383b",
+      "bytes": 159
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/test-rounds.md",
+      "sha256": "7a28cbbecbb0bbffcd74742a5c5a5f033c895187155c4de84168f0a25a7c58bd",
+      "bytes": 6917
+    },
+    {
+      "path": "plugins/astrbot_plugin_context_aware/video_input.py",
+      "sha256": "c18c449dc433607c19b9e54ec57e8f3aa97988941d6f095950ee8359bfef1afb",
+      "bytes": 41031
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_chat/LICENSE",
+      "sha256": "ccf7d08f932af3e813848881731113afbb7c80d0fd6d958e8d319002bf344d02",
+      "bytes": 34500
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_chat/README.md",
+      "sha256": "9464cc7eb1387b475d2644700210844d1e738c6e16663b257768eba1d733b1f5",
+      "bytes": 612
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_chat/_conf_schema.json",
+      "sha256": "6c981f2f3ac7091b75e09003ff02983b916042aa1f4ccf4584cfcbc89a94b8dd",
+      "bytes": 3037
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_chat/group_memory.py",
+      "sha256": "8e98d9e3d2935b2f95e034efac00a41a398d7da698cd7f548d1f5dfb6fc39a1b",
+      "bytes": 11173
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_chat/main.py",
+      "sha256": "eccb378730ce01884476f798081f217c50117d0f145ff6bb132afce60fa2a220",
+      "bytes": 27935
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_chat/metadata.yaml",
+      "sha256": "2667268b9ed44a10c5b6733c6e789d5e2a9f5c8a340c538aca499979a74fae55",
+      "bytes": 238
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_chat/tests/test_chat.py",
+      "sha256": "6aa6705d17974f640210c0458015b1b15c86e871c7d3468057e4b8ea9d466bcf",
+      "bytes": 21824
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_chat/tests/test_group_memory.py",
+      "sha256": "5c9d511bac4a50679da3235677a7fe7fdeaaa5cf2334db1107099e0a055a517c",
+      "bytes": 9799
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_presence/LICENSE",
+      "sha256": "ccf7d08f932af3e813848881731113afbb7c80d0fd6d958e8d319002bf344d02",
+      "bytes": 34500
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_presence/README.md",
+      "sha256": "d7ad0f1d392ea37588e3b53944e42e57d34a3ccaafeea5c0c8a24db873927f8b",
+      "bytes": 594
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_presence/_conf_schema.json",
+      "sha256": "423d3a2cfb572a5e735acaa9d6e8e900787787bcff2eb7fdd330b9a3d0f1ef25",
+      "bytes": 2075
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_presence/main.py",
+      "sha256": "6d3e256e21cf825b94db89df0ece0d117ccebe283693a6a307efe73ff8ed4696",
+      "bytes": 15357
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_presence/metadata.yaml",
+      "sha256": "9f1e09f7d946ae4dff188aa730364fd90456b2acb397b1d1409da9af94399fa0",
+      "bytes": 259
+    },
+    {
+      "path": "plugins/astrbot_plugin_dafeiyu_presence/tests/test_presence.py",
+      "sha256": "00d8c759213f4e5714a726f7df6adb58a7247d09dd56535ffccea90e249ec012",
+      "bytes": 10986
+    },
+    {
+      "path": "plugins/astrbot_plugin_master_aware/.gitignore",
+      "sha256": "df1c5ee3ebfa73b88462c456cdb32943d65dad33b487472594d8c819e38d7d11",
+      "bytes": 118
+    },
+    {
+      "path": "plugins/astrbot_plugin_master_aware/CHANGELOG.md",
+      "sha256": "0d4d9f5bdda86bf463fe5dc86debb5903de16c5276254351cf170fc1df092a56",
+      "bytes": 3992
+    },
+    {
+      "path": "plugins/astrbot_plugin_master_aware/LICENSE",
+      "sha256": "11f8c98a12932831ba12ec005b6a3e6f8924a9330b537f97de8797c16a3fa0ef",
+      "bytes": 1066
+    },
+    {
+      "path": "plugins/astrbot_plugin_master_aware/README.md",
+      "sha256": "31a33a3f64bc495c93d780dac80a13b6c4c45aadf799161d7f80f7c36ee5bb47",
+      "bytes": 5094
+    },
+    {
+      "path": "plugins/astrbot_plugin_master_aware/_conf_schema.json",
+      "sha256": "c55bc7a4fb4c363068534e205a01f7db65273446218b6c61f6a4e3bc3d4fbd72",
+      "bytes": 4865
+    },
+    {
+      "path": "plugins/astrbot_plugin_master_aware/main.py",
+      "sha256": "f972b53f1842396922c7aa8625dc654e79d5c3411105076543e182133fde8ced",
+      "bytes": 22775
+    },
+    {
+      "path": "plugins/astrbot_plugin_master_aware/metadata.yaml",
+      "sha256": "9d0f31247de5b7dc020c7ef3aeb9c36ee0e2c9ffb0fb2fcb4013c0ecffc4fbe7",
+      "bytes": 794
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/.gitignore",
+      "sha256": "15bf1154611a540922f266fc461b885d68cb2228ff3b77f40c2aa557ceeb678b",
+      "bytes": 123
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/CHANGELOG.md",
+      "sha256": "0d6fdf01f0c07090daab2298d2290bc6e310a03282e5430a07f8710966441344",
+      "bytes": 9259
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/LICENSE",
+      "sha256": "8ee65309a629428b60e3525c454785bdf49cffb28ebc4a7e44fb731d02c21979",
+      "bytes": 1068
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/README.md",
+      "sha256": "409affd84248fbfee6f06462d0f003112013f9037440f3339bf4e55e06f29eb9",
+      "bytes": 18425
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/__init__.py",
+      "sha256": "3cbc07403f396fbd56fe338cdaabf4d435935c6172c4687f62febfaac2f13d38",
+      "bytes": 45
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/_conf_schema.json",
+      "sha256": "e6720e5cc4cba61fb1d7ac97167445333f1e3574b066f11a9c4b3da9b4c5502a",
+      "bytes": 10711
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/assets/icon.svg",
+      "sha256": "adbb3538ca42697c5fe06d4c1f26927d7434a6f94251cdd5d4eda4b6df50c15b",
+      "bytes": 2525
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/assets/readme-hero.svg",
+      "sha256": "e38eab53fc2072cf80263b7d483a0dbbf53668741dbf4780f774060b915a4667",
+      "bytes": 3325
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/__init__.py",
+      "sha256": "1802d3a64abe9fb9d326a1f630045e20f30dd85cf194e318260a3f0b7f6f3da8",
+      "bytes": 50
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/audio_codec.py",
+      "sha256": "b30ca334c08b0d35a5a8d0380d6c278a1e7a60865dd2c7daba9540d6f8af507d",
+      "bytes": 2616
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/config.py",
+      "sha256": "88749b78f1b78bd30427a5335356a157dd24b9a9ce34aaa9cf9c5273fb24a71e",
+      "bytes": 13749
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/emotion.py",
+      "sha256": "ee621c356e96b92549e4bc0a594c2792477bc2052590cdd5f6297005874e4979",
+      "bytes": 4242
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/mimo_official_client.py",
+      "sha256": "fbd812afaf1ab2432bcb2d22c4e648aa46aff3e28841bd47095438ac92c8f5da",
+      "bytes": 9410
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/model_catalog.py",
+      "sha256": "51cd15b37026daa7c3aaed9c347a244eb10a09fa6567972f9a1704331939145b",
+      "bytes": 1015
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/pages_upload.py",
+      "sha256": "94a40ee5ce2c571dc6b4ebbb379fbce8472d9acdc40b25c98960adc3419c1787",
+      "bytes": 2785
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/studio_store.py",
+      "sha256": "abc0d5e798d6f12d73cb4783f1bbe4515812ee6a3bdfb123210c1e09b75362e0",
+      "bytes": 7611
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/studio_transfer.py",
+      "sha256": "ff81dde5ccbcc40217205851752bb55c5e0b9884675cade8986bf882ddf5981e",
+      "bytes": 5246
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/style_director.py",
+      "sha256": "3519456f92db97f2550a096bc842ae8e3eb710e178c1a23e8c534f278e7b6aa9",
+      "bytes": 10570
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/synthesis_context.py",
+      "sha256": "5f92077c9ce612959c770f4cea2300cce4a98769cd823e0c0f232b83c1cb13b8",
+      "bytes": 1746
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/text_processing.py",
+      "sha256": "e85ac2a765c503edf93b23ac6654004d358adaba883d8f1c5ffbdbce849ae3ef",
+      "bytes": 2507
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/tts_jobs.py",
+      "sha256": "ea458d79fbae4b912854b4dd753e53d3cf2b158e2d6632262fe747f313132907",
+      "bytes": 21638
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/tts_reliability.py",
+      "sha256": "fc54e6a46ef25b792063de73adcace4d006161b2ea6b22d662740631503f6935",
+      "bytes": 6678
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/voice_store.py",
+      "sha256": "21bc79ff362e80151eff8cf3ea1bb364c60eeaf7e526893d8bb9c2985a13f500",
+      "bytes": 12465
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/core/wav_utils.py",
+      "sha256": "79af07b22f5c0a3c326091fee7de19adde7de91e1e73d843587f2c38065776b0",
+      "bytes": 1724
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/docs/implementation-plan.md",
+      "sha256": "23b95de7e0733c23006b355b1b47b4eabf39dc68ee2833a2390c9f5b25dafe69",
+      "bytes": 2860
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/docs/v080-migration.md",
+      "sha256": "ef2b132a4d8f83eee59233257f29dbaa441f8e95fe771f2eb8268d64ae3cc6e2",
+      "bytes": 2645
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/docs/v080-progress.md",
+      "sha256": "598e5d1e3da189c9d20a01d201a4453d498ec8beb8e2e8004165c03e4d9506a6",
+      "bytes": 7129
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/logo.png",
+      "sha256": "503da49c28c9f7404b6424eae78b44bd3d4c64e07a89c6e2f9f11b4aae8cbaac",
+      "bytes": 59739
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/main.py",
+      "sha256": "9675ea1703ec26b5315f605fc60f73a0356ceb43f7fdd36141894324d95d8459",
+      "bytes": 104045
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/metadata.yaml",
+      "sha256": "ecdfd350f79aab3c63de38f86f4102b53f83f1c01ffb96a4fc189b8a07aa1194",
+      "bytes": 1574
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/pages/settings/app.js",
+      "sha256": "76c011e1d06bfa96b90e6ef56e5bce6cb383d6bcf3166fee2338f2cf3e9d94c3",
+      "bytes": 42453
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/pages/settings/index.html",
+      "sha256": "2a19703bf716e68acef4571b7a1bacfe6dfa8173ba179467368a9d330562f902",
+      "bytes": 25294
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/pages/settings/layout.js",
+      "sha256": "2fc48eedf5237686410605a3b3bcdc3246f53200ebc9e565ccc9cf702d1b9514",
+      "bytes": 2377
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/pages/settings/studio.js",
+      "sha256": "47e701d9261fbd44acc3286bc43eeec0630724aba8ca704c0385f8650fedd7d0",
+      "bytes": 23563
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/pages/settings/style.css",
+      "sha256": "36bbe547242adea18ec8ef40e784a667f06ed8cb4a809b7e5fabffa7f0534340",
+      "bytes": 32675
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/pages_api.py",
+      "sha256": "2825938d31ec3e2eede688bb91c0ac50cff792497a6c48d09e037f636c87eb46",
+      "bytes": 23036
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/requirements.txt",
+      "sha256": "a77eb77e193201f1cc42b2d14bd598437650474888e372f8b6ed774d17fb1d39",
+      "bytes": 32
+    },
+    {
+      "path": "plugins/astrbot_plugin_mimo_tts_clone/studio_api.py",
+      "sha256": "ff40c659b266cbfe570877ff78edf9d08d0e53d4de829d9dbad64b66d495769f",
+      "bytes": 22704
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.devin/wiki.json",
+      "sha256": "29d2038638f8727e6b1081b9f2984f1a78636da49d83a6faf027d90db3dbd997",
+      "bytes": 8872
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.gitattributes",
+      "sha256": "b12750b2059e196c300c16d69697eb485dc40ff6f7d8675623284342ac6a65a7",
+      "bytes": 395
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/ISSUE_TEMPLATE/bug_report.yml",
+      "sha256": "fe356ad2b2dff2d1ed333f0e88867aef3a53a75eb40defb84c247586154295bf",
+      "bytes": 4520
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/ISSUE_TEMPLATE/design.yml",
+      "sha256": "b1fc567abed8ccdb69d72943cf8b1d73e90b063eecd61c676c9b4baa8d2046db",
+      "bytes": 3274
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/ISSUE_TEMPLATE/discussion.yml",
+      "sha256": "31ef3ed1c4a0720f1061146021da6f4e90635533c46142c73c950bf349547f00",
+      "bytes": 5752
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/ISSUE_TEMPLATE/docs.yml",
+      "sha256": "2d20d3eb2ab5dc60d259174f07dcfed6238e773924512929d3892dfbaed17539",
+      "bytes": 4784
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/ISSUE_TEMPLATE/feature_request.yml",
+      "sha256": "bc7cfa57d6960c3e523eff4a962e327478409bef9e982214ca6e4d3b44f544c4",
+      "bytes": 3561
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/PULL_REQUEST_TEMPLATE.md",
+      "sha256": "3c5d5bfb26621bb1591092aeb31bea125886d5c1f355d7586692e58f1648c4d4",
+      "bytes": 2461
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/dependabot.yml",
+      "sha256": "6143f15894e7428b2f03e0ee22d9785bb0af2905ba9f50f5aafaa98d52d32f60",
+      "bytes": 412
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/workflows/release.yml",
+      "sha256": "85aede9b4e17e6690210f78aba48252a14d6bc60b4fb6e683a74f63b7700a778",
+      "bytes": 5506
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/workflows/ruff-format.yml",
+      "sha256": "dcbf14ec46d72266ce348b2b517d1bfe48ac09f8693e0856752a9886f6704799",
+      "bytes": 6991
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/workflows/shit-mountain.yml",
+      "sha256": "3ce50dc7ab552566edcffcf1b154ea51ff91eb9494c5b8acc42327b3da76ba89",
+      "bytes": 14348
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.github/workflows/stale.yml",
+      "sha256": "e7523cea115cf783702568e52e73ece95c72880bfb2e9682509232c98deefc84",
+      "bytes": 3191
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/.gitignore",
+      "sha256": "1700bc335e66d22614c0c43fc9d2cd4776d01b38a484e5538b158a8f55676517",
+      "bytes": 4694
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/CHANGELOG.md",
+      "sha256": "ae39f2c6229d2a99d128c8f1890c6d3b36ff2bdda6f17144896f58f84237a225",
+      "bytes": 40537
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/CODE_OF_CONDUCT.md",
+      "sha256": "2276687d35d804f952a431e0c381e362090106ee4b7c33875cf806149f972379",
+      "bytes": 5219
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/CONTRIBUTING.md",
+      "sha256": "2468b634cb246a5ead07850fc49183e2102ece59fcec313c8c39120b024c606c",
+      "bytes": 6842
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/LICENSE",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "bytes": 34523
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/README.md",
+      "sha256": "6b5b196e4b7b52d9987bc87da034ae89d07a7efd0376230870e2752a337509d8",
+      "bytes": 88919
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/README_EN.md",
+      "sha256": "cbc47ac89727f1bdf48e6cd0a1ea332ebaaa8bef5d5e7995308730c067285473",
+      "bytes": 94335
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/README_JP.md",
+      "sha256": "f6a690d12b33416ab689e336b540c1a57c5e4bf97e780b3497f64f9cd0e577c3",
+      "bytes": 113071
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/_conf_schema.json",
+      "sha256": "5708df5833696aad91922d9cd84d18223d8df87329b56a830c0d512fa01f6aaa",
+      "bytes": 35385
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/css/style.css",
+      "sha256": "747908a12003796e0c3419a11812a5671ce655632a0af40285a0c5b066dd9683",
+      "bytes": 88680
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/fonts/outfit-400.ttf",
+      "sha256": "6a8c9be856a6b9e09c66615634904616152c9de5e44db343a3ced240479c586a",
+      "bytes": 47844
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/fonts/outfit-500.ttf",
+      "sha256": "9a9f465776e653cd6175661d844555e08684d432518f1d2c621bcb3006598f9c",
+      "bytes": 47800
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/fonts/outfit-600.ttf",
+      "sha256": "8900df5726b5a6f23e723594f11d5ea27e695bd85c884f18d88ed080544fe205",
+      "bytes": 48456
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/fonts/outfit-700.ttf",
+      "sha256": "49dcdf653a004a2575b3de649f5e4c549d774fecddf317812330edd0ad70685a",
+      "bytes": 48340
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/fonts/outfit-800.ttf",
+      "sha256": "27147c0353ecafbb8e69fe02da56680f7d12bdc2764c8346012ec031374036d6",
+      "bytes": 48272
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/fonts/outfit.css",
+      "sha256": "f5b4aac56d1db7d285ecff3b609bf93a7822ff61048aa31fe3f342e039848b2e",
+      "bytes": 1071
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/index.html",
+      "sha256": "2ef140f7c7507aa4fc52138c5954e376670589e59f12ea62564346831ddb9245",
+      "bytes": 18814
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/app.jsx",
+      "sha256": "a449b339557dc8e61a81f0525118df4b0530ace5916e669414693d4901073eeb",
+      "bytes": 14262
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/components/config/ConfigRenderer.jsx",
+      "sha256": "ba6b81fdc72c605adee12f09fdfdbe203eaa60f86f8830b85547d421e68957ac",
+      "bytes": 58716
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/components/layout/Header.jsx",
+      "sha256": "2a24b30ba3e6e8a0fb59d21e34c0052b055736e2165401bbd0fd2479e3ef6e1a",
+      "bytes": 4179
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/components/layout/Sidebar.jsx",
+      "sha256": "4c705f0121ac97834f65517602aa27e87cc38b67182f6e68e52954f5ab07abff",
+      "bytes": 8723
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/context/AppContext.jsx",
+      "sha256": "b425e1c022a6dad4db1426f0f05e4d08c764f2c11b99a1e0638230aaf778e4ea",
+      "bytes": 4652
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/hooks/useApi.js",
+      "sha256": "a573d4c3a711fddf4cf502a9406f782e81fbece91916e74bc1be4cb97687b282",
+      "bytes": 4608
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/hooks/useWebSocket.js",
+      "sha256": "b32e3ef904f02ce63b37d28147f32c337ff41a8717f5423bcbcb53af28e34854",
+      "bytes": 4961
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/utils/auth.js",
+      "sha256": "03f994e1ac9d53bf8519dbe66ad2716a7e19cfe18b50cf457ca073ec9d3bd675",
+      "bytes": 1875
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/utils/formatters.js",
+      "sha256": "c34823a1df803f03dd884f2ddcc57f4bde834325136e2a2262ab9ebec7128335",
+      "bytes": 8127
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/utils/http.js",
+      "sha256": "780fea06c3e160d2fddd9957a44cd4adf8f1b5b6d80c8681b9b44e5affa6c540",
+      "bytes": 1852
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/utils/markdown.js",
+      "sha256": "064b0e462a3c79cf437d19f6a141b7ad1501c99ccd9aca620b7621f1bccdb341",
+      "bytes": 26481
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/views/ConfigView.jsx",
+      "sha256": "c6fbffffcfa7635f13442812ca6ba9e253f8ac00db5b5e55e2236bfc291765f8",
+      "bytes": 1292
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/views/MarkdownDocsView.jsx",
+      "sha256": "474e507f74b67839ac8b601cd7bcbefeb43d9169ace5b148d866169fd527a61a",
+      "bytes": 25158
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/views/NotificationsView.jsx",
+      "sha256": "f8ec7f8bc03c9e8f1d40a680bbde43d7e4075eb4959117e6e0ca2f41a4215bb7",
+      "bytes": 13842
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/views/StatusView.jsx",
+      "sha256": "9e4e563d9f688b71eb5fae17e8a2945d8381d8c6977cf1541dd448a1d26a43cf",
+      "bytes": 27020
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/admin/js/views/TasksView.jsx",
+      "sha256": "c4f612a9e740cc36dafff3387d7bcf0fc8f14ae0d1561661479849f677440c86",
+      "bytes": 25923
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/assets/PluginRank.svg",
+      "sha256": "d3cdb91675bead584165d25db196325c5d2b5e1025487c5616f478acd493eab1",
+      "bytes": 5176
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/assets/ShitMountain.svg",
+      "sha256": "a447694111b51ab1c0ef5aa0e0a221dbfc5ce9ba5aaf631059c4ed2e09cad12e",
+      "bytes": 1140
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/assets/StarRank.svg",
+      "sha256": "1d9e5dc23009e08bcb113945277a9c584d66300817c2c42cdeafb2752acad534",
+      "bytes": 1411
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/chat_flow.py",
+      "sha256": "86f8c8f02566dc9bc7ed37893df38a5275debf197647eb7cbf37112dd910552d",
+      "bytes": 22302
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/data_storage.py",
+      "sha256": "8b6ae9708d47dae3c5c4b8676df86dee5a126d0eb99d6d462305c91655c1fe64",
+      "bytes": 6989
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/llm_adapter.py",
+      "sha256": "3c8dbaf889cf4c1852893343e718d31dbe73b4a6fb193d779888e1be9da2a1dc",
+      "bytes": 52620
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/message_events.py",
+      "sha256": "49684893a476bdb6c54a5ef75adc3af9fc74f8a2d232e799eba78ae78619d2cd",
+      "bytes": 15374
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/message_sender.py",
+      "sha256": "a8ed3d12a72e054427af25cca0f8a3a76969da732659b593c833cde43cdfc6c9",
+      "bytes": 32040
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/notification_center.py",
+      "sha256": "195fe45d51e894495c507a2b111f3bdf5bcba1f858b01aafc192305d17d75564",
+      "bytes": 16968
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/plugin_lifecycle.py",
+      "sha256": "f912cb15503b3af17ff63a4073d9364904db8c738c2b32d6a2bdac8e791661d2",
+      "bytes": 18655
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/proactive_event.py",
+      "sha256": "85aba23e56934eb98e2c9efccafe9463fc02689520687bb3dd5139f2492ff244",
+      "bytes": 23523
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/session_config.py",
+      "sha256": "9de96f86a8ff4012f20a063201496f8b49527844f796ac50a2db29a414c5d2e2",
+      "bytes": 5621
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/session_override_manager.py",
+      "sha256": "64812baa76a87084eb2cbe31de85e49bc45a7de8a92358b482d0370abb6d662f",
+      "bytes": 6281
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/session_parser.py",
+      "sha256": "e455dc1f301116c4575ce3eb6f5161c0a8c7af38688bfbf6cabd9604af84daf9",
+      "bytes": 8059
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/task_scheduler.py",
+      "sha256": "0439eea220c86f161ad5edd9204cb9889a144baf55870a2e9db4131653247f51",
+      "bytes": 34253
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/telemetry_manager.py",
+      "sha256": "262760d1e89f49b7eec23ba4eff8d5511f2d155d13a6a6cce88dd9ad36a70a2b",
+      "bytes": 24098
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/core/web_admin_server.py",
+      "sha256": "33169ddccab2ebe8927ad7c10e2995d09e710943795b2c0f646369adc89208db",
+      "bytes": 68816
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/docs/notification-api-spec.md",
+      "sha256": "b8582965ca6f28bdb6d37fbfa63c48aa7d42b159d3192a1a76bd288918b3f56c",
+      "bytes": 11960
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/logo.png",
+      "sha256": "aac5c1fe25bd0b0c2ba46051ebb4d585b799119b05f809309b237ab9bfaf02cb",
+      "bytes": 69222
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/main.py",
+      "sha256": "3086a6667a897307b0c0d352f2c88f26622eeb91ded11a10220a96eab003bd44",
+      "bytes": 12887
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/metadata.yaml",
+      "sha256": "3a6612016c87a12b141a89f4be39aa32653bea0f561d0d74288e9c7192034bed",
+      "bytes": 627
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/requirements.txt",
+      "sha256": "ecbd92c3a1276547523ec6f13c72ddc9afefeeb9871e6d4c96840b961ba96e7c",
+      "bytes": 343
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/run_ruff.bat",
+      "sha256": "d912a54fc72cfe04f378d0812b6f31b04c8bf31c7368d9fc7ebde4afda2eb48a",
+      "bytes": 4340
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/utils/time_utils.py",
+      "sha256": "ef220e663debed6b9ad993b4ea53f0a09483602c752c0060fa3aae4325886bab",
+      "bytes": 1550
+    },
+    {
+      "path": "plugins/astrbot_plugin_proactive_chat/utils/version.py",
+      "sha256": "bb4df5fc3b06d1cb5c04c4d84ece95c8a5192783a38d9d79ed4d0514f91d36b3",
+      "bytes": 6336
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/.gitignore",
+      "sha256": "1913e1dc7a7840cbf57c543fcde698b2e0ba7219deb8d314a1bf3e1063d47ad8",
+      "bytes": 560
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/CHANGELOG.md",
+      "sha256": "4e573f6f85406543294d520a2e7ec22c2d428e3109aaeaf8fc058b9ab8a976a7",
+      "bytes": 2480
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/LICENSE",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "bytes": 35149
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/README.md",
+      "sha256": "b1c1439a7a674bd91c5ee25e9635fd860034dd911763232a205ce4bd7ea24df2",
+      "bytes": 7111
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/_conf_schema.json",
+      "sha256": "5009d38bec236372dfbf5660bb6859b1886084c2efadffd00cf5e1adbf957df4",
+      "bytes": 23371
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/config.py",
+      "sha256": "f68278c7c43c7a8d4d850f1dce2708dedc6413ccd93f18e1c0ca38739778fa3b",
+      "bytes": 4470
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/editor.py",
+      "sha256": "01d3160a7ad2e9d707f4f4c1a0f424f412a99c1903e4549a3e53f42041e1f1a9",
+      "bytes": 7693
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/entry.py",
+      "sha256": "439dfad1a6e4942f1c01ba0cf6a33f7d3829d4ce75b71b86788b9a98fc9b5f91",
+      "bytes": 13772
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/holidays.py",
+      "sha256": "18db499a4ef92bc366fde4b33bc448fd203a5cb894d1b44d028be7d59fed5bbc",
+      "bytes": 5770
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/lorebook.py",
+      "sha256": "5f63cbc4db1265f232d24e19b369fbe54d42101701fe6d2628c946f832d23860",
+      "bytes": 11020
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/lorefile.py",
+      "sha256": "e3fa975bd1cf0e45f63bfcbceee32e78a05300cba142fed196f04122f58820a9",
+      "bytes": 3140
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/scheduler.py",
+      "sha256": "516459f36b9c9230c15f0cb32ef3f5dd1e61cac5c971c5a3c387fe776379c3f7",
+      "bytes": 4725
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/session.py",
+      "sha256": "5bb49875726adb323ab18248b016502d47ca020141b07dbabd96dd01a6e181ec",
+      "bytes": 3853
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/share.py",
+      "sha256": "945678cffdb9696b059f49adc3341cf0833ce49c60d2217b6e6a639b2a112a3a",
+      "bytes": 4437
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/template.py",
+      "sha256": "c2d8dcfc93541e4fec385257e97cb7150958bb0a1f50fed3e2917ae9dcfc285e",
+      "bytes": 2481
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/core/wildcard.py",
+      "sha256": "0dcd0f6214ec52aafd597672c13f300af05c4159ad4b256939d6ed31ca812a38",
+      "bytes": 4271
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/default_lorebook.yaml",
+      "sha256": "6d41882278d58bafd115b10c82b2b0638909c0f9fd0e30eb2bd57c4780ca5ac5",
+      "bytes": 25706
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/logo.png",
+      "sha256": "ae0fce8f93c9327c918c8721ad0b5a03e29c6292bc64cc263a32c5b7c7e2c9b2",
+      "bytes": 109209
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/main.py",
+      "sha256": "b9a175394e897fe46eaf170ff994c0c29db1200d281205707c24f430c87bcfe0",
+      "bytes": 19878
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/metadata.yaml",
+      "sha256": "4b30056084792038aebe6ade3e562e00a94393499a7d10c42f7a5574798ee77b",
+      "bytes": 354
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/cover.png",
+      "sha256": "1f34083c1858d02b9ca29a637b2a255f0c0db020c0a89effa284e9c812abfb9c",
+      "bytes": 7341
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/elements.json",
+      "sha256": "25e9da35c627c5df72488753e021058b188d74f221467e881f39404ae5f197a5",
+      "bytes": 1140
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/1.2.200.png",
+      "sha256": "744eddb36530de5f3de265d7056b24387c60e8e3e84e61f5e13ca261fb284aeb",
+      "bytes": 11296
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/2.2.200.png",
+      "sha256": "1ff8c87fd84b9cc52551aa62458a22ccb7b899377ed1837faea916850d317092",
+      "bytes": 1958
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/2.3.200.png",
+      "sha256": "7f4a56edf04ba7104dd2c30171f7516ace1c1eaf902f42307a6bf9d08d3b70f4",
+      "bytes": 3009
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/2.aa.png",
+      "sha256": "d1204cda2befdf987e56537b572b0056c813effd982f678e11736d32421d6c22",
+      "bytes": 2507
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/3.2.200.png",
+      "sha256": "3efd854f56c83374cf48d6b0613be09c1d9f692f231712c1de4c2c749e2c3358",
+      "bytes": 5150
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/4.2.200.png",
+      "sha256": "fd64326e92036b03a0c6c33052375478127b7ba9c3b2ded4fe45868e55b134ab",
+      "bytes": 2146
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/4.3.200.png",
+      "sha256": "6ab3b9eb18e119442676b4a94b7bad8daa05866e9fced960409fce337a84e3f2",
+      "bytes": 3230
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/5.2.200.png",
+      "sha256": "8934e081c0bba6bab7f269eb50aada865846b639db7a021470f84eee60084277",
+      "bytes": 2147
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/5.3.200.png",
+      "sha256": "def0cf0705a5662d4b8d3e930f6352e6a34745ec9065024e7b627a4b53e10bc1",
+      "bytes": 3245
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/6.2.200.png",
+      "sha256": "9380ecfb7871b62c52b1a4ddeb469a8f2c88ada7870223fbe05d29a770cdc627",
+      "bytes": 4885
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/7.2.200.png",
+      "sha256": "8c6624ad5db82c2c86c5af7782ef87c9d642c831cc4eb286a90ab6c74e706b43",
+      "bytes": 1978
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/7.3.200.png",
+      "sha256": "b7589c57dae4340bcd7e0c4d10b8a0250b61417d6a5505488767e07b52a3c65c",
+      "bytes": 3046
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/8.2.200.png",
+      "sha256": "084bec947b72df4ea634752673c89bdc0fe5fa94bbf9858e2966a4b56668d32d",
+      "bytes": 4344
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/imgs/9.2.200.png",
+      "sha256": "7a463ae41725595d713b60ad65a05af53f0d7a66b2e93f81efd1a40b14ce7a15",
+      "bytes": 1305
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/pillowmd_style/setting.json",
+      "sha256": "23819adebbfdd9eacca68a1150c02f6f0f321700300b36c280edbcadc19b7466",
+      "bytes": 1812
+    },
+    {
+      "path": "plugins/astrbot_plugin_worldbook/requirements.txt",
+      "sha256": "bdd224248179fdc38172e52b50bb8eca5459e45bb9bda2e6ce5b119ab6756a28",
+      "bytes": 9
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_music/LICENSE",
+      "sha256": "ccf7d08f932af3e813848881731113afbb7c80d0fd6d958e8d319002bf344d02",
+      "bytes": 34500
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_music/README.md",
+      "sha256": "4ae5f40a6dbe9439ecb69678b262af6b7a9fe7179cfea821097f8b0257e897f7",
+      "bytes": 601
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_music/_conf_schema.json",
+      "sha256": "549eaa4dfa9f0d0503f8e38d3ce3cf36c2dd80a02cb6e9cfb3d282c17706e3cd",
+      "bytes": 1089
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_music/main.py",
+      "sha256": "c7be65a551a4424228303eb6aa74d6838178c6621e8a13af210f4429cf791d13",
+      "bytes": 36496
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_music/metadata.yaml",
+      "sha256": "4d257ceb28f7c09ca028a9ca0fe1c3c8f5428c8d64a10d33c0f1c1ba781884b6",
+      "bytes": 253
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_music/tests/test_music.py",
+      "sha256": "18e9d983f5eb0493aa269ea35c14bf6184b1936f293d7d128768bfa545b9ca17",
+      "bytes": 27546
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_voice/LICENSE",
+      "sha256": "ccf7d08f932af3e813848881731113afbb7c80d0fd6d958e8d319002bf344d02",
+      "bytes": 34500
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_voice/README.md",
+      "sha256": "7146ba07b04d5dde0ca78f3efad751ee42ebb63c267a6ad43799b75bc5a5c953",
+      "bytes": 580
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_voice/_conf_schema.json",
+      "sha256": "baaa844c32e82d9564aa5722378f19e52f174d1fd7d448df1064359dc9c3e991",
+      "bytes": 1406
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_voice/main.py",
+      "sha256": "16cc35e2118c0928e0da13e678fa0009799b82ecc96b2e97f908c001781fb541",
+      "bytes": 29284
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_voice/metadata.yaml",
+      "sha256": "3db0e9546d8d22f9832a803a075de52d75285fc1223d4231c0515a49f1d83732",
+      "bytes": 268
+    },
+    {
+      "path": "plugins/astrbot_plugin_xiaod_voice/tests/test_voice.py",
+      "sha256": "5c07e44f0c375790fa8e0524aaf7ac43eb9bcdc65054b2cb2a96b0bc448ecd18",
+      "bytes": 24085
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/Banner.png",
+      "sha256": "67022948aa52756bb92476ec5aec1e83f8419a147fa84aa56b6ac648b8cfea18",
+      "bytes": 1579694
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/stats/download-rank.svg",
+      "sha256": "080783dc8e56bcbddb322182c2a9bffbf9abf285d19b48734b7746bda0908f50",
+      "bytes": 917
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/stats/downloads.svg",
+      "sha256": "972b277b52fe965c2ae7e777826fa0778d8f0b4d51e6254797da8d8721246c28",
+      "bytes": 913
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/stats/snapshot.json",
+      "sha256": "7cb3fcffc9d72ea7235a4fe21e5631506b5ac41101d704c5d0df8f8431313d09",
+      "bytes": 296
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/stats/star-rank.svg",
+      "sha256": "2a07229622ff0d7fe2b3cb7013c3e51fb46f39cd0d0cdc36050a29811d49b9d2",
+      "bytes": 911
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/多包使用规则.jpg",
+      "sha256": "064203958e4dacbfab40467268bea267be0b3956c16163511f123abf98a9abb5",
+      "bytes": 67196
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/表情包管理.png",
+      "sha256": "bcfc3fcb9db6eb7e36a9cb777c63e19cd7690aa05be299d77fec9075ddbb5d12",
+      "bytes": 1390840
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/表情包设置中心.png",
+      "sha256": "fff3e86660209fff8b892c3110139882d2d3d239cdf318d3ba2b5fd9ace64f98",
+      "bytes": 180438
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/设置中心模式.jpg",
+      "sha256": "0127b836b468a42f37537300a468ba619fe67b98ff560f56aefea5bb8ff727ec",
+      "bytes": 61541
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/设置中心流程.jpg",
+      "sha256": "7adb7db90e7ef3f3e65f8647aee6d766d2b3800795332121b3b46746e48836ed",
+      "bytes": 21430
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/访问WebUI.png",
+      "sha256": "10b6d90c00ad21a7aa462679bd11b307b598a6477f566bb969f58a6ca31e6c8b",
+      "bytes": 124589
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/语义表情包页面.png",
+      "sha256": "f344d2ed25888cee3e50ff098404a9312ce3c98df9b33a1ddb3ab387fae61b2b",
+      "bytes": 94604
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/资源包更新预览.jpg",
+      "sha256": "f14cb18d920d320075073cc36811384423b9984819d746603646783e25dac633",
+      "bytes": 65353
+    },
+    {
+      "path": "plugins/meme_manager/.github/img/资源广场.png",
+      "sha256": "fb4950f206826c137527230a3f7dceaa3fae05f121687779e4c8931ae14a50c0",
+      "bytes": 1157899
+    },
+    {
+      "path": "plugins/meme_manager/.github/scripts/test_market_stats.py",
+      "sha256": "6056d4fafceb9d4c3a7c56fc517139efca2bfb29e210a7e3da60a9ed9056c2d4",
+      "bytes": 2966
+    },
+    {
+      "path": "plugins/meme_manager/.github/scripts/update_market_stats.py",
+      "sha256": "d9b5e4c1cd0362fe24542b22893c5466fe5677791c75fb6009cb35201405f85c",
+      "bytes": 4472
+    },
+    {
+      "path": "plugins/meme_manager/.github/workflows/update-market-stats.yml",
+      "sha256": "2f1f632830d52a2ba3719e04ff230d34565c2f859a351d6386880649205a6238",
+      "bytes": 1845
+    },
+    {
+      "path": "plugins/meme_manager/.gitignore",
+      "sha256": "d289fd360e08c756ab8144c7ce3ea154dfce1afc88d84984ef16d5351ff4564d",
+      "bytes": 3701
+    },
+    {
+      "path": "plugins/meme_manager/CHANGELOG.md",
+      "sha256": "1a1c3f01a1594eea69cae1dcd45e4f3fb3c8cbe0eec3357b56ebe5ac8714b032",
+      "bytes": 13913
+    },
+    {
+      "path": "plugins/meme_manager/DEVELOPMENT.md",
+      "sha256": "c6e81426cd71971134813481e1ea12fa05c341a63ca6a122587379d9008b21cf",
+      "bytes": 11051
+    },
+    {
+      "path": "plugins/meme_manager/LICENSE",
+      "sha256": "e40601ba687df67a83ed6591635f3249238850aae3ddb90085502263e93c651a",
+      "bytes": 1061
+    },
+    {
+      "path": "plugins/meme_manager/README.md",
+      "sha256": "55e062ec8634a95bf2da0ab61859c28b0e1ecaf979874b0a8aa82557b017913b",
+      "bytes": 17254
+    },
+    {
+      "path": "plugins/meme_manager/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/meme_manager/_conf_schema.json",
+      "sha256": "1eb4a322d0be14e7578c72f9bf7bd59989d65ead625c8830c60dce71d178db9b",
+      "bytes": 27409
+    },
+    {
+      "path": "plugins/meme_manager/backend/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/meme_manager/backend/auto_collect.py",
+      "sha256": "0cc532dc73b902cd4aa84439f809abcb23311e7fee39d87995fa6307d811e0fd",
+      "bytes": 70338
+    },
+    {
+      "path": "plugins/meme_manager/backend/auto_collect_index.py",
+      "sha256": "387e0ae43b98c8bf64d8657e3fc71d771828e29aa8f2410e0786b1019e901310",
+      "bytes": 7021
+    },
+    {
+      "path": "plugins/meme_manager/backend/meme_parser/__init__.py",
+      "sha256": "7eb8437531348e448e87ca36d83df7047ac42cdb36d7db736bc4a6d991b34d37",
+      "bytes": 208
+    },
+    {
+      "path": "plugins/meme_manager/backend/meme_parser/context.py",
+      "sha256": "58dde7824f4c3fc0fa852532de3f58493f54c867d516393e2a46514778fd05b9",
+      "bytes": 7965
+    },
+    {
+      "path": "plugins/meme_manager/backend/meme_parser/parser.py",
+      "sha256": "345206950d4087c435b59276a77fa2422e377c73f6fafbaa87c70113af3ffaf4",
+      "bytes": 15912
+    },
+    {
+      "path": "plugins/meme_manager/backend/meme_parser/text_safety.py",
+      "sha256": "be83dad818f2d7e9abb8fa44662f1726e194b6c7eaf4835e12aef34284220d75",
+      "bytes": 8724
+    },
+    {
+      "path": "plugins/meme_manager/backend/meme_parser/types.py",
+      "sha256": "ac38b86c852f292637793bbe3d7852918cd0c45c7c138139810c57dfc83694b7",
+      "bytes": 741
+    },
+    {
+      "path": "plugins/meme_manager/backend/packs/__init__.py",
+      "sha256": "bb7eaeb7a163d7aea46a0de5b3697806c6359a959d803a5952d151bfe3aeb43a",
+      "bytes": 72
+    },
+    {
+      "path": "plugins/meme_manager/backend/packs/categories.py",
+      "sha256": "f9d244f7e70811fcff60e4a5b826cdbb17d9f851f10f9917160c09e5340203ad",
+      "bytes": 15376
+    },
+    {
+      "path": "plugins/meme_manager/backend/packs/images.py",
+      "sha256": "351380f71b6b8c58a9bcbb2bae15f02182b740823d37ffb11c9057b44ae42104",
+      "bytes": 22887
+    },
+    {
+      "path": "plugins/meme_manager/backend/packs/protocol.py",
+      "sha256": "2f5fa9691d5da8f80cd5827aee1094e19f5b3fd8e950a73585d177b1db027894",
+      "bytes": 8026
+    },
+    {
+      "path": "plugins/meme_manager/backend/packs/resolver.py",
+      "sha256": "3b3b19e49992aa76f907876a88706a8c7e4dd5f9c51e3548eefc73d3aa07ef86",
+      "bytes": 9083
+    },
+    {
+      "path": "plugins/meme_manager/backend/packs/storage.py",
+      "sha256": "94a584efc5fe15fd7f630166e721800b4df045824913f8b0abef4066c0afa631",
+      "bytes": 89282
+    },
+    {
+      "path": "plugins/meme_manager/backend/packs/transfer.py",
+      "sha256": "cfd29436ff611d95fc85d43f51849a1c7f600c0433e19b70610717725e67c252",
+      "bytes": 11224
+    },
+    {
+      "path": "plugins/meme_manager/backend/packs/updates.py",
+      "sha256": "a65c35821595b1cab775e51049b31616aaf781de95b82d635510ea335025b016",
+      "bytes": 32360
+    },
+    {
+      "path": "plugins/meme_manager/backend/plugin_settings.py",
+      "sha256": "efaa745b2bb89b9530d7f7a63c25ebbf14afdc16b7d347f2aeaf335efdd0f6d0",
+      "bytes": 7029
+    },
+    {
+      "path": "plugins/meme_manager/backend/semantic/__init__.py",
+      "sha256": "77dcd34b5201e2b58264bbab969eea51abcf67ba1effb30710f0c427c274ce9b",
+      "bytes": 77
+    },
+    {
+      "path": "plugins/meme_manager/backend/semantic/caption.py",
+      "sha256": "bbb54aaf4223240f79fef472d2e93250285dcc14145cc3578dd8098858ffce19",
+      "bytes": 32487
+    },
+    {
+      "path": "plugins/meme_manager/backend/semantic/index.py",
+      "sha256": "bf15087c3e5d07bea894f431a642b9d64081a03c872940759ec31f6c0986ccb5",
+      "bytes": 32140
+    },
+    {
+      "path": "plugins/meme_manager/backend/semantic/models.py",
+      "sha256": "faa87238b8fe24c4ccf2cf84371b7014e9c940a932439fdadddab678b49ad227",
+      "bytes": 25888
+    },
+    {
+      "path": "plugins/meme_manager/backend/semantic/query.py",
+      "sha256": "71bccf3e75823bcaea8eae46b80a1d7bf9a177202a411711744d7804b2785ed9",
+      "bytes": 11554
+    },
+    {
+      "path": "plugins/meme_manager/backend/semantic/storage.py",
+      "sha256": "1cfa3b1c1d14b8d87996ed6a832bd1135141c2896a2d0e8b1bbd6c1a48f57bc9",
+      "bytes": 99705
+    },
+    {
+      "path": "plugins/meme_manager/backend/semantic/task.py",
+      "sha256": "2f278a65b75383bf391d25d2391f9a4e61f5458664a72876d3c7c17190be0e11",
+      "bytes": 93832
+    },
+    {
+      "path": "plugins/meme_manager/config.py",
+      "sha256": "29562bdd38977e1d134d154a077324fbb4c8a46d62a0ded4bbf91668c53ae8c5",
+      "bytes": 8829
+    },
+    {
+      "path": "plugins/meme_manager/image_host/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/meme_manager/image_host/config.json",
+      "sha256": "72044e7651f2926dd0613fd953956e79ffe55ac5d509032e28dcf8b056dad5d6",
+      "bytes": 306
+    },
+    {
+      "path": "plugins/meme_manager/image_host/config_r2_example.json",
+      "sha256": "4adf420a676117e661d4b5f1792e9fc08efab62721893d01fbe049655cbd33b7",
+      "bytes": 398
+    },
+    {
+      "path": "plugins/meme_manager/image_host/core/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/meme_manager/image_host/core/file_handler.py",
+      "sha256": "3d743742a274b9eff0b4d6f18800e9343099ba1cb4c1671f54e24788163f1f2a",
+      "bytes": 8465
+    },
+    {
+      "path": "plugins/meme_manager/image_host/core/sync_manager.py",
+      "sha256": "f0f80c21082c877d00710874f821f835cf266949e1917808816549663c810607",
+      "bytes": 21658
+    },
+    {
+      "path": "plugins/meme_manager/image_host/core/upload_tracker.py",
+      "sha256": "3054fd0424db9f8d6657a98ec7ada1c01f8cef8fa29673e233297b2f8246299d",
+      "bytes": 4729
+    },
+    {
+      "path": "plugins/meme_manager/image_host/img_sync.py",
+      "sha256": "c2c3c14c02dc2eb07b31b8af29c5c904a932eaa4945d873f36deea317b9b8074",
+      "bytes": 13409
+    },
+    {
+      "path": "plugins/meme_manager/image_host/interfaces/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/meme_manager/image_host/interfaces/image_host.py",
+      "sha256": "a12752f4b70e55275a3c3b5e9e9212d4b489efb6db7d9db622a1c6de95d327f2",
+      "bytes": 2376
+    },
+    {
+      "path": "plugins/meme_manager/image_host/providers/__init__.py",
+      "sha256": "185243923e77777ca0d1769e0c900e94f319ab2c57821f127b1ddb0e5afc965d",
+      "bytes": 463
+    },
+    {
+      "path": "plugins/meme_manager/image_host/providers/cloudflare_r2_provider.py",
+      "sha256": "4b559b182e47cee8962a43b12835980a6ee45ad5f38bf3a6e02ea9a34868e7b0",
+      "bytes": 7944
+    },
+    {
+      "path": "plugins/meme_manager/image_host/providers/lsky_provider.py",
+      "sha256": "391ca415ffdc3238500f9961569be14690670d0b5c74bc0faeded9b527f1765d",
+      "bytes": 14668
+    },
+    {
+      "path": "plugins/meme_manager/image_host/providers/provider_template.py",
+      "sha256": "67d448e5ac283d2a346bff98434c95347d0a10703e8daf61460341a59eade800",
+      "bytes": 1725
+    },
+    {
+      "path": "plugins/meme_manager/image_host/providers/stardots_provider.py",
+      "sha256": "7026ed0acfd0aaa6bcd4b7055c759e222b8098a66d14c4f4d50b5a26230c61f9",
+      "bytes": 17334
+    },
+    {
+      "path": "plugins/meme_manager/image_host/providers/webdav_provider.py",
+      "sha256": "5cdf55b49f250dbb038bd0fce91275db5347c6fb61ceae9e7552a0e5f933cd5b",
+      "bytes": 18268
+    },
+    {
+      "path": "plugins/meme_manager/logo.png",
+      "sha256": "e31b56ccd0e749f13a72ae2fc8d0f6c60381b2ae71ff73b404473c0ca513796b",
+      "bytes": 978833
+    },
+    {
+      "path": "plugins/meme_manager/main.py",
+      "sha256": "7e0a23931ef4b6f1ba45c207465e2b969bdfc37cd08d3e4f1535c415f055535c",
+      "bytes": 44797
+    },
+    {
+      "path": "plugins/meme_manager/metadata.yaml",
+      "sha256": "ca8868dc73603d283a1b5e1e6dd2c0812af96508bdda95416636c95553b8fcc6",
+      "bytes": 902
+    },
+    {
+      "path": "plugins/meme_manager/mixins/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "plugins/meme_manager/mixins/commands.py",
+      "sha256": "bc5ca8b290b30c9aa278e27d2f321ba9f36b588c6f346ba34a5a58dc526b4be3",
+      "bytes": 40389
+    },
+    {
+      "path": "plugins/meme_manager/mixins/event_handlers.py",
+      "sha256": "f2d539468a286630758700155d86d36bace1c295a2025428f5a1e47023452934",
+      "bytes": 81838
+    },
+    {
+      "path": "plugins/meme_manager/mixins/integration.py",
+      "sha256": "81cfcb846d723bf898a5a7d8d45c59529980c9b67d2bf26472f3750f7a40bd83",
+      "bytes": 2332
+    },
+    {
+      "path": "plugins/meme_manager/mixins/web_api.py",
+      "sha256": "1df7f0864b431a254c01c2e2d9c0badeb4d9205cfddddcacf1fb87376404a55a",
+      "bytes": 176355
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/a_manage/index.html",
+      "sha256": "a6b1d0d7dce4db6a763db596c8a3e21f61e89a37b670571ff5b22ebe22d280e7",
+      "bytes": 36815
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/a_manage/pack-transfer.js",
+      "sha256": "c827ff880e9cd58379b49f1af352f284267ed236ea48b1ef3ef572c7e3179992",
+      "bytes": 7684
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/a_manage/script.js",
+      "sha256": "fd6b7f230300dbba2e753211252b9c33b85c64c735e32c95b6169b9a11b80648",
+      "bytes": 244787
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/a_manage/style.css",
+      "sha256": "ba4bed004fd1a2f7274ae7158f4ee2cbe8bfd6c79b9135e991520397c993450d",
+      "bytes": 66366
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/catalog/index.html",
+      "sha256": "69ca6f7f351cee6b6abb5cbb4867690a10b43100e45c164a7a37f3ffe34ccb8b",
+      "bytes": 9416
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/catalog/script.js",
+      "sha256": "9d5746b942a17acf38b635679ff41fc45cd96697960e4e4a1eae5dcaf03f8182",
+      "bytes": 37093
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/catalog/style.css",
+      "sha256": "cce196eef71c3e110c7260925e7b3131e061f2676f0b9b1d14b0bee50fbe33da",
+      "bytes": 9837
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/catalog/updates.js",
+      "sha256": "8dea75fe932d652d1fda8d0d437430f60cd1be3331896da3f90dbac399df6459",
+      "bytes": 24209
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/index.html",
+      "sha256": "28aeb91d9e3a782a50244e8da608bda94d7306f21ed50b09b7d861a16868aa65",
+      "bytes": 799
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/semantic/index.html",
+      "sha256": "24de8c5669897a76fb8388b6d519fe7b4134c33d9e510c490b50fcc60f7998df",
+      "bytes": 9841
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/semantic/script.js",
+      "sha256": "9376363de42b1e15f95787cd2373ef58ed1c17a9981a9c0d8cd65bef7c128712",
+      "bytes": 38988
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/semantic/style.css",
+      "sha256": "c0dfe8b7a6533fb5b531efc58f4f7cb85453c5742395915567c55d417b8794a9",
+      "bytes": 7783
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/settings/config.js",
+      "sha256": "fa379292f2203d1e4d651d13524b311afe0694f177a8e0b8c859d154c33f609f",
+      "bytes": 48869
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/settings/index.html",
+      "sha256": "144a709fd67eaaa0c7fcf7124a04ff72422f2a2eef6f234412ed40f2cd4146af",
+      "bytes": 30981
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/settings/script.js",
+      "sha256": "3d1e99f12ac0c1ef1f153cb14c3a9073a77235f6a816d2c781cb2152abd2a866",
+      "bytes": 50699
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/settings/storage-guide.js",
+      "sha256": "7a2917bfad151eae7123694d7ea2714b3348c032e900ab11512c1e6202794144",
+      "bytes": 957
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/settings/style.css",
+      "sha256": "93d23eb436d19f2b2d27e30e2881a6a24d4fe1458020c6fe659fe2efdffa0537",
+      "bytes": 30808
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/fa.min.css",
+      "sha256": "32cb3092b05488fb95d6db6ff7c1bcc74ff9fc44199fedef949443dc34baaf3b",
+      "bytes": 101470
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/preview.js",
+      "sha256": "8cfa6b2f40cc8376e7f3a33c1d9451f40e040c770f32f5c7e50bae5fc785b4e7",
+      "bytes": 4069
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/ui.css",
+      "sha256": "bc5869adcc068db6f2222e61a3d5b213513bf416fdedfaa74a7888a951e68163",
+      "bytes": 22186
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/ui.js",
+      "sha256": "8ba3d984af4ef62c5a0335545a77b4ea045a5da2775f0f88579c5a2190f98937",
+      "bytes": 10798
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/webfonts/LICENSE.txt",
+      "sha256": "a931f7ec8f4e04d965b3bb2c56e76a63b48325703e4cf390db099b89e0b36e3a",
+      "bytes": 7428
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/webfonts/fa-brands-400.woff2",
+      "sha256": "748332090c4b8e20f95d0ff59f0be20fa9c889359d3b36d4b886d73376054207",
+      "bytes": 108020
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/webfonts/fa-regular-400.woff2",
+      "sha256": "8e7e5ea1b15f62ab14dbd41768e8fbcd21cc859a4ea5da812457ee714299fb35",
+      "bytes": 24948
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/webfonts/fa-solid-900.woff2",
+      "sha256": "7152a6933ee3d690ec2af3d09da9d701723d16aa3410a6d80f28ff8866f3b880",
+      "bytes": 150124
+    },
+    {
+      "path": "plugins/meme_manager/pages/app/shared/webfonts/fa-v4compatibility.woff2",
+      "sha256": "694a17c3d9d6c05f8aac63c544615552a4b220e9a4de863d87341a6bcfc1bc8d",
+      "bytes": 4564
+    },
+    {
+      "path": "plugins/meme_manager/requirements.txt",
+      "sha256": "8d96b76f85da26436f2ad7d5af0423a3a9db6627f515d3f010f6826e93b5f324",
+      "bytes": 54
+    },
+    {
+      "path": "plugins/meme_manager/utils.py",
+      "sha256": "c03e9dfd7e149599e2f9537c8645a6cfe5f9c331d68a7574e69985c5133462a4",
+      "bytes": 2973
+    },
+    {
+      "path": "presets/deepseek-model.json",
+      "sha256": "c1009e78314d2604911f9c3140eb91afa111859951396d4f37490de590feb89d",
+      "bytes": 270
+    },
+    {
+      "path": "presets/deepseek-source.json",
+      "sha256": "5bdb10523839290f1c2c37caeb5a595b707e556b6f864ed53fd2693dd64702a0",
+      "bytes": 285
+    },
+    {
+      "path": "presets/group-overrides.json",
+      "sha256": "e3f4ca5fb3ea8e0afc6760b6da37e7939d8de6539e9b2920079e65899cf4684f",
+      "bytes": 2794
+    },
+    {
+      "path": "presets/persona.json",
+      "sha256": "47068da08b7b95d0568eb4fcdfb9d19b8689c79ac16c48da778975d6d6793ceb",
+      "bytes": 9155
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_affection.json",
+      "sha256": "575edb806230be236a1046086523dd5bb3efd495ad9310e77cfe4d874eebca06",
+      "bytes": 434
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_context_aware.json",
+      "sha256": "953a181e9bd21399817ca8c4235848c57988acbaa21c7e9c32d334d3ff7a3595",
+      "bytes": 3111
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_dafeiyu_chat.json",
+      "sha256": "89ed287e08ae6c3a27acdc66b567b73b25ba43ce686d336ad01fa0033b4abf94",
+      "bytes": 941
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_dafeiyu_presence.json",
+      "sha256": "4fd5ffcda40be021302d2c9ef48b47e82de41cbce5fb89e3a5fc8d5d643d1642",
+      "bytes": 595
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_master_aware.json",
+      "sha256": "c4e17daccf19c8ef231a4f050b38d43d3c8672f0130b81c732279690d7c0d095",
+      "bytes": 1047
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_mimo_tts_clone.json",
+      "sha256": "d7b081c783195492a2d8704509d8035a8426f758f9877a52d8f88eb02e3f748e",
+      "bytes": 2124
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_proactive_chat.json",
+      "sha256": "e33eec3eaf4cc543e1be1220c40ce7f0d487a9e05f7eba55c7975ba50a6ce4e1",
+      "bytes": 7691
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_worldbook.json",
+      "sha256": "26463ff0bfb49617ddc868b1587b163fa63e07d59ac65c66be9b8efb1fcb7661",
+      "bytes": 6381
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_xiaod_music.json",
+      "sha256": "2fc410ec04c7e63ea472c0765f9846a9917561467a0d6e3264d852432802309d",
+      "bytes": 297
+    },
+    {
+      "path": "presets/plugins/astrbot_plugin_xiaod_voice.json",
+      "sha256": "83e43ee0582772f9394f22132485a14668d2774656b4bab2e87d4da1edfdc007",
+      "bytes": 369
+    },
+    {
+      "path": "presets/plugins/meme_manager.json",
+      "sha256": "e42fd8cc7d2603fd1fde664da6e6fec0c2ebd2a8c7c3665d5cfdb0a8e04cb6e5",
+      "bytes": 6299
+    },
+    {
+      "path": "presets/private-overrides.json",
+      "sha256": "ca0d514b1982044152b3417de6b32635812c773256b7bb09e0e6e4ccd3915d18",
+      "bytes": 2317
+    },
+    {
+      "path": "presets/singing.json",
+      "sha256": "1e56f39bdfba043b6191c6d2181254c2fc8827b979ea357084e3589635261b7a",
+      "bytes": 311
+    },
+    {
+      "path": "presets/song-catalog.json",
+      "sha256": "a178bf946fe72edac4433389f41da1ee8be2b4dedac07c33b2559604085be9ef",
+      "bytes": 1930
+    },
+    {
+      "path": "presets/voices.json",
+      "sha256": "6c85a427b279b7ba0843bab892b78ebe1d45f1981cf74ccc80a23e3f61d04c3a",
+      "bytes": 5847
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "704839ee41681f68d98046238f00ae95b8b5452dc9fe6defa358e831af14959c",
+      "bytes": 296
+    },
+    {
+      "path": "singing/models.lock.json",
+      "sha256": "a9efcad1b620684ee9ed8533eceede79bb57fcdf7bc829590a13606c2f6f3b64",
+      "bytes": 2487
+    },
+    {
+      "path": "singing/prepare_online_song.py",
+      "sha256": "2895d834ed41fd48dc70cc29b1b80c8dd6610ef3dfef1214bbee05efc4b4a69f",
+      "bytes": 11172
+    },
+    {
+      "path": "singing/render_singing.py",
+      "sha256": "8b360b4a810d4ba09bea29500d2ab7ff2dd81b7c00491d29d1ac5ec8e5ccf177",
+      "bytes": 9251
+    },
+    {
+      "path": "singing/seed-vc.patch",
+      "sha256": "32e4b0ee0ce505c4137a7a1fb09632d3296ffc0f4dce75603038e10648154d56",
+      "bytes": 1851
+    },
+    {
+      "path": "singing/tests/test_online_source.py",
+      "sha256": "a612d7eaa6573df479d87c09f71b2ad6f632d3f19290890c823da0b6c3a54b21",
+      "bytes": 4470
+    },
+    {
+      "path": "singing/tests/test_render_singing.py",
+      "sha256": "90183fb450576413e5ce0b6cbeed86711f9d3c36c5e92b9b14e9ba85a4f11bd2",
+      "bytes": 6503
+    },
+    {
+      "path": "sources.lock.json",
+      "sha256": "51d6a11d75473c95b97484b23d0bcdd516e9247d108953958862461ff7b099f0",
+      "bytes": 1268
+    },
+    {
+      "path": "start.command",
+      "sha256": "3fdc05c51b2def2ce156f8eb4455ed424ec94e5b38d5dd6f84f60d6f85568e8a",
+      "bytes": 103
+    },
+    {
+      "path": "tests/test_setup.py",
+      "sha256": "c9225e8614b47556c3e6e2011431664529cdedb68d9c1a398e0576472e020d96",
+      "bytes": 4332
+    },
+    {
+      "path": "third_party/FontAwesome-Free-LICENSE.txt",
+      "sha256": "a931f7ec8f4e04d965b3bb2c56e76a63b48325703e4cf390db099b89e0b36e3a",
+      "bytes": 7428
+    },
+    {
+      "path": "third_party/Seed-VC-LICENSE",
+      "sha256": "8b1ba204bb69a0ade2bfcf65ef294a920f6bb361b317dba43c7ef29d96332b9b",
+      "bytes": 35148
+    },
+    {
+      "path": "third_party/components.json",
+      "sha256": "93d1cf582f8b24ddade7bccffe3b0ecac45f13938ad1bfbab4f8c148ce064c7a",
+      "bytes": 1813
+    },
+    {
+      "path": "third_party/voice-dataset-LICENSE.md",
+      "sha256": "a8cd47b7ecaccf1dec676a1d04390609eede9f7b1e6ef51c3bd75b629ea59334",
+      "bytes": 574
+    },
+    {
+      "path": "tools/audit_public.py",
+      "sha256": "b9986f79e6e4a4a7dac352eff0643eeb0ec5e0dcb15b39e006259b2bcf600e5d",
+      "bytes": 2112
+    },
+    {
+      "path": "tools/cli.py",
+      "sha256": "04ed5a25e41978091629f70df4d64cc41444324c57dc2985d06f5bc901f32aad",
+      "bytes": 11353
+    },
+    {
+      "path": "tools/common.py",
+      "sha256": "107e6de11accf720bcfec193b864bfa9af59e6e22f5f2c528fe0d37c9bf06afb",
+      "bytes": 4605
+    },
+    {
+      "path": "tools/configure_runtime.py",
+      "sha256": "b1be12a18a692344dfbd1d1e3de574bac76bdb6943cc241ce788e3a4de8330ec",
+      "bytes": 15484
+    },
+    {
+      "path": "tools/setup_models.py",
+      "sha256": "2e4174e67cbc888d6828034bcf2942f1616b9d27228b4e9413de02bc89763726",
+      "bytes": 2406
+    },
+    {
+      "path": "tools/setup_singing.py",
+      "sha256": "a533d48ea5e1786791bb7157b9a5f028c7ae1b84469d7532c3cfa106316121db",
+      "bytes": 3752
+    },
+    {
+      "path": "xiaod",
+      "sha256": "6fad5392e666d02479b5f69e1e1c6bd90ad6c9616ddaff416335d7bb9a24dd7e",
+      "bytes": 279
+    }
+  ]
+}

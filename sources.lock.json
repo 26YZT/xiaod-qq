@@ -1,0 +1,32 @@
+{
+  "astrbot": {
+    "url": "https://github.com/AstrBotDevs/AstrBot.git",
+    "tag": "v4.29.3",
+    "commit": "f61a7f42696da6df25dc7a249ec9b8d54ed9da18"
+  },
+  "dashboard": {
+    "url": "https://github.com/AstrBotDevs/AstrBot/releases/download/v4.29.3/AstrBot-v4.29.3-dashboard.zip",
+    "sha256": "a09f560c4140b930180f63a4929c885da80e24fb9bbda56619727bd25e985a11"
+  },
+  "napcat": {
+    "image": "mlikiowa/napcat-docker@sha256:b101b8968cc31ae428ec0f8e117386e4ced7773b2d8226ed9f7ddfcec55f1b7e"
+  },
+  "seed_vc": {
+    "url": "https://github.com/Plachtaa/seed-vc.git",
+    "commit": "51383efd921027683c89e5348211d93ff12ac2a8"
+  },
+  "separator": {
+    "package": "audio-separator",
+    "version": "0.30.2",
+    "model": "model_bs_roformer_ep_317_sdr_12.9755.ckpt",
+    "model_sha256": "5b84f37e8d444c8cb30c79d77f613a41c05868ff9c9ac6c7049c00aefae115aa",
+    "wheel_url": "https://files.pythonhosted.org/packages/49/84/8e0a2673bb44d1961eb778031638915be8d6866b5a7c38c2582857fc4543/audio_separator-0.30.2-py3-none-any.whl",
+    "wheel_sha256": "6cbb9d775fca421090614a77b03814f964f083ec898154ae144351ac2ba4de2b"
+  },
+  "dataset": {
+    "repo": "YinZilu/da-fei-yu-girl-voice-zh",
+    "revision": "master",
+    "license": "CC BY-NC 4.0",
+    "sha256_verification": true
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "enabled": {
+    "type": "bool",
+    "description": "启用小D明确点歌",
+    "default": true
+  },
+  "private_sessions": {
+    "type": "list",
+    "description": "允许点歌的私聊",
+    "default": []
+  },
+  "group_sessions": {
+    "type": "list",
+    "description": "允许明确点歌的群",
+    "default": []
+  },
+  "default_full_source": {
+    "type": "bool",
+    "description": "默认制作现有音源的完整长度，明确要求片段时给短版",
+    "default": true
+  },
+  "online_accompaniment_enabled": {
+    "type": "bool",
+    "description": "按歌名自动获取公开音源、分离伴奏并制作L声线翻唱；首次制作较慢，完成后缓存",
+    "default": false
+  },
+  "account_id": {
+    "type": "string",
+    "description": "托管机器人QQ号，首次配置自动填写",
+    "default": ""
+  },
+  "owner_id": {
+    "type": "string",
+    "description": "允许主动联系与管理点歌的主人QQ号",
+    "default": ""
+  },
+  "platform_id": {
+    "type": "string",
+    "description": "AstrBot平台ID",
+    "default": "qq-personal"
+  }
+}

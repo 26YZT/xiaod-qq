@@ -1,0 +1,34 @@
+name: astrbot_plugin_mimo_tts_clone
+display_name: MiMo TTS 音色克隆
+short_desc: MiMo 三模型语音工作台，支持音色设计、克隆、唱歌与 AI 语音导演
+desc: >
+  提供 MiMo v2.5 voiceclone 官方接口接入、Pages 音色管理、授权参考音频上传、
+  试听诊断、全局/群/用户/情绪默认音色设置、发送前 AI 语音导演、聊天命令朗读、
+  普通 LLM 回复概率语音化，以及面向其他插件复用的 TTS 服务方法和 LLM 工具。
+version: v0.8.0-dev
+author: Justice-ocr
+author_desc: >
+  Justice-ocr，AstrBot 插件开发者，关注多模态工作流、AI 绘图/语音插件、
+  Pages 管理体验与实用型机器人扩展。
+astrbot_version: ">=4.16.0,<5"
+support_platforms:
+  - aiocqhttp
+  - qq_official
+  - qq_official_webhook
+repo: "https://github.com/Justice-ocr/astrbot_plugin_mimo_tts_clone"
+homepage: "https://github.com/Justice-ocr/astrbot_plugin_mimo_tts_clone"
+icon: "logo.png"
+tags:
+  - tts
+  - mimo
+  - voice-clone
+  - pages
+  - emotion-routing
+  - multi-voice
+  - ai-director
+license: "MIT"
+disclaimer: >
+  本插件仅用于合法、授权、合规的语音合成场景。请仅上传本人声音或已获得明确授权的声音样本。
+  不得用于冒充他人、欺骗、诈骗、骚扰、绕过平台风控、生成未授权语音或其他违法违规用途。
+  MiMo API 服务能力、费用、地区可用性和内容安全规则以官方平台为准，插件作者不对第三方服务变更、
+  账号封禁、费用支出、数据合规风险或滥用后果承担责任。

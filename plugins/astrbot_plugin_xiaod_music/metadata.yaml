@@ -1,0 +1,8 @@
+name: astrbot_plugin_xiaod_music
+display_name: 小D自动点歌
+desc: 保留方案2的L歌声，自动搜歌、分离伴奏、后台翻唱与QQ分段缓存播放。
+version: 1.1.0
+author: 26YZT
+astrbot_version: '>=4.29.3'
+support_platforms:
+- aiocqhttp

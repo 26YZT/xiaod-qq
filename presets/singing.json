@@ -1,0 +1,11 @@
+{
+  "name": "方案2",
+  "voice_id": "voice_20261027_205631_7c368589",
+  "reference_sha256": "7940eb2e9270ac58cd955e6271af217d405269f190bfd167e1489292afcd60af",
+  "diffusion_steps": 50,
+  "guidance": 0.5,
+  "pitch_shift_semitones": 3,
+  "length_adjust": 1.0,
+  "default_full_source": true,
+  "training": false
+}

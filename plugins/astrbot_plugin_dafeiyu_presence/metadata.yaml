@@ -1,0 +1,8 @@
+name: astrbot_plugin_dafeiyu_presence
+display_name: 小D动态与签名
+desc: 根据原生角色卡生成独立动态和签名，按日程低频更新自己的QQ资料。
+version: 1.0.0
+author: 26YZT
+astrbot_version: '>=4.29.3'
+support_platforms:
+- aiocqhttp

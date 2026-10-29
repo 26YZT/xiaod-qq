@@ -1,0 +1,68 @@
+[
+  {
+    "name": "astrbot_plugin_dafeiyu_chat",
+    "version": "1.2.0",
+    "source": "local integration",
+    "license": "AGPL-3.0-or-later"
+  },
+  {
+    "name": "astrbot_plugin_dafeiyu_presence",
+    "version": "1.0.0",
+    "source": "local integration",
+    "license": "AGPL-3.0-or-later"
+  },
+  {
+    "name": "astrbot_plugin_xiaod_voice",
+    "version": "1.4.1",
+    "source": "local integration",
+    "license": "AGPL-3.0-or-later"
+  },
+  {
+    "name": "astrbot_plugin_xiaod_music",
+    "version": "1.1.0",
+    "source": "local integration",
+    "license": "AGPL-3.0-or-later"
+  },
+  {
+    "name": "astrbot_plugin_context_aware",
+    "version": "3.11.0",
+    "source": "https://github.com/muyouzhi6/astrbot_plugin_context_aware",
+    "license": "MIT"
+  },
+  {
+    "name": "astrbot_plugin_master_aware",
+    "version": "4.2.0",
+    "source": "https://github.com/QuanWander/astrbot_plugin_master_aware",
+    "license": "MIT"
+  },
+  {
+    "name": "astrbot_plugin_worldbook",
+    "version": "v2.2.9",
+    "source": "https://github.com/Zhalslar/astrbot_plugin_worldbook",
+    "license": "GPL-3.0"
+  },
+  {
+    "name": "astrbot_plugin_mimo_tts_clone",
+    "version": "v0.8.0-dev",
+    "source": "https://github.com/Justice-ocr/astrbot_plugin_mimo_tts_clone",
+    "license": "MIT"
+  },
+  {
+    "name": "meme_manager",
+    "version": "5.2.6",
+    "source": "https://github.com/anka-afk/astrbot_plugin_meme_manager",
+    "license": "MIT"
+  },
+  {
+    "name": "astrbot_plugin_affection",
+    "version": "v1.3.1",
+    "source": "https://github.com/middcom/astrbot_plugin_affection",
+    "license": "AGPL-3.0-or-later"
+  },
+  {
+    "name": "astrbot_plugin_proactive_chat",
+    "version": "v1.2.6",
+    "source": "https://github.com/Pancakes-Labs/astrbot_plugin_proactive_chat",
+    "license": "AGPL-3.0-or-later"
+  }
+]

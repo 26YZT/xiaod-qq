@@ -1,0 +1,98 @@
+{
+  "enabled": {
+    "description": "启用群聊节奏与简短回复指引",
+    "type": "bool",
+    "default": true
+  },
+  "group_sessions": {
+    "description": "允许主动接话的群会话",
+    "type": "list",
+    "default": [],
+    "hint": "填写完整会话ID；只在列出的群中旁听和主动接话。"
+  },
+  "decision_interval_seconds": {
+    "description": "上下文语义判断的最短间隔秒数",
+    "type": "int",
+    "default": 10,
+    "hint": "在有新消息且不处于主动冷却时判断；不是定时发言，也不要求凑够消息条数。"
+  },
+  "bot_names": {
+    "description": "机器人在群里的称呼",
+    "type": "list",
+    "default": [
+      "小D",
+      "可爱鲸鱼娘小D",
+      "才不是大肥鱼",
+      "大肥鱼",
+      "鲸鱼娘"
+    ],
+    "hint": "供语义判断参考，不是出现这些名字就强制回复。"
+  },
+  "related_topics": {
+    "description": "角色可参与的话题参考",
+    "type": "list",
+    "default": [
+      "海边、海玻璃和小收藏",
+      "饭团、白饭与吃喝分享",
+      "雨天休闲与听雨",
+      "猜谜和轻松游戏",
+      "小物收纳、可爱昵称",
+      "公开的知识问答、解题与编程求助"
+    ],
+    "hint": "按语义结合上下文判断，近义表达也可以；与正在参与的话题相关的后续消息同样可以接。"
+  },
+  "cooldown_seconds": {
+    "description": "机器人回复后的主动接话冷却秒数",
+    "type": "int",
+    "default": 90,
+    "hint": "被@和引用触发不受此冷却限制。"
+  },
+  "max_proactive_per_hour": {
+    "description": "每群每小时最多主动接话次数",
+    "type": "int",
+    "default": 8
+  },
+  "persona_id": {
+    "description": "使用简短回复指引的人格ID",
+    "type": "string",
+    "default": "可爱鲸鱼娘小D"
+  },
+  "casual_min_chars": {
+    "description": "日常闲聊建议最少字数",
+    "type": "int",
+    "default": 15,
+    "hint": "这是模型指引；简短反应可更短，不强制凑字数。"
+  },
+  "casual_max_chars": {
+    "description": "日常闲聊建议最多字数",
+    "type": "int",
+    "default": 60,
+    "hint": "认真解释、详细步骤、代码和长文请求可以按需展开，不强制截断。"
+  },
+  "owner_id": {
+    "description": "可查看群记忆状态的主人QQ",
+    "type": "string",
+    "default": ""
+  },
+  "group_memory_enabled": {
+    "description": "启用目标群的持久文字记忆",
+    "type": "bool",
+    "default": false
+  },
+  "group_memory_records": {
+    "description": "每群保存的近期文字条数",
+    "type": "int",
+    "default": 50
+  },
+  "group_memory_summarize_every": {
+    "description": "累计多少条成员消息整理一次事实备忘",
+    "type": "int",
+    "default": 12
+  },
+  "group_memory_daily_summary_budget": {
+    "description": "每群每日最多整理次数",
+    "type": "int",
+    "default": 24,
+    "hint": "整理使用现有对话模型；未整理时仍保存和提供近期文字。"
+  }
+}

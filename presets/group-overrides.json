@@ -1,0 +1,92 @@
+{
+  "agent_runner": {
+    "runner_type": "local",
+    "config": {
+      "model": {
+        "provider_id": "deepseek/deepseek-chat",
+        "fallback_provider_ids": [],
+        "request_max_retries": 2
+      },
+      "persona": {
+        "persona_id": "可爱鲸鱼娘小D",
+        "safety_mode": true,
+        "safety_mode_strategy": "system_prompt"
+      },
+      "compression": {
+        "max_turns": 40,
+        "trim_turns": 1,
+        "overflow_strategy": "llm_compress",
+        "instruction": "只整理本群已确认的成员事实、称呼、偏好、决定、未完事项和话题，保留说话者归属；新更正覆盖旧信息。不要把机器人旧自我介绍、旧角色定义、模型用量/价格猜测或虚构生活当作事实。角色身份以当前原生人格系统提示词为准。不能确定谁说的就标注来源不明，不将甲的偏好分配给乙。 成员归属以附带的member_key匿名索引为准，保留索引与昵称的对应，不合并同名的不同成员。",
+        "keep_recent_ratio": 0.15,
+        "provider_id": "",
+        "fallback_max_tokens": 128000
+      },
+      "misc": {
+        "max_steps": 128,
+        "tool_schema_mode": "full",
+        "tool_call_timeout": 120,
+        "sanitize_context_by_modalities": false
+      }
+    }
+  },
+  "platform_settings": {
+    "unique_session": false,
+    "rate_limit": {
+      "time": 60,
+      "count": 30,
+      "strategy": "stall"
+    },
+    "reply_prefix": "",
+    "forward_threshold": 1500,
+    "enable_id_white_list": true,
+    "id_whitelist": [],
+    "id_whitelist_log": true,
+    "wl_ignore_admin_on_group": true,
+    "wl_ignore_admin_on_friend": true,
+    "reply_with_mention": false,
+    "reply_with_quote": true,
+    "path_mapping": [],
+    "segmented_reply": {
+      "enable": false,
+      "only_llm_result": true,
+      "interval_method": "random",
+      "interval": "1.5,3.5",
+      "log_base": 2.6,
+      "words_count_threshold": 150,
+      "split_mode": "regex",
+      "regex": ".*?[。？！~…]+|.+$",
+      "split_words": [
+        "。",
+        "？",
+        "！",
+        "~",
+        "…"
+      ],
+      "content_cleanup_rule": ""
+    },
+    "no_permission_reply": true,
+    "empty_mention_waiting": true,
+    "empty_mention_waiting_need_reply": true,
+    "friend_message_needs_wake_prefix": false,
+    "ignore_bot_self_message": true,
+    "ignore_at_all": true
+  },
+  "wake_prefix": [
+    "/",
+    "小D",
+    "小d",
+    "小鲸鱼",
+    "鲸鱼娘",
+    "大肥鱼"
+  ],
+  "plugin_set": [
+    "meme_manager",
+    "astrbot_plugin_worldbook",
+    "astrbot_plugin_context_aware",
+    "astrbot_plugin_master_aware",
+    "astrbot_plugin_dafeiyu_chat",
+    "astrbot_plugin_xiaod_voice",
+    "astrbot_plugin_mimo_tts_clone",
+    "astrbot_plugin_xiaod_music"
+  ]
+}

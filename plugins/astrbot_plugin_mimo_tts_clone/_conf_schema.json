@@ -1,0 +1,338 @@
+{
+  "api_key": {
+    "type": "string",
+    "description": "MiMo API Key",
+    "hint": "可在 MiMo 官方平台获取，也可以在插件 Pages 页面填写。",
+    "default": ""
+  },
+  "base_url": {
+    "type": "string",
+    "description": "MiMo API Base URL",
+    "default": "https://api.xiaomimimo.com/v1"
+  },
+  "model": {
+    "type": "string",
+    "description": "TTS 模型",
+    "options": ["mimo-v2.5-tts-voiceclone"],
+    "default": "mimo-v2.5-tts-voiceclone"
+  },
+  "output_format": {
+    "type": "string",
+    "description": "输出格式",
+    "options": ["wav"],
+    "default": "wav"
+  },
+  "default_context": {
+    "type": "string",
+    "description": "默认风格指令",
+    "hint": "会作为 user 消息传给 MiMo，用于控制语气和风格；待朗读文本仍放在 assistant 消息。",
+    "default": ""
+  },
+  "emotion_routing_enabled": {
+    "type": "bool",
+    "description": "启用自动情绪路由",
+    "default": true
+  },
+  "emotion_contexts": {
+    "type": "object",
+    "description": "情绪风格指令映射",
+    "hint": "例如 {\"happy\":\"明亮轻快\", \"sad\":\"低沉克制\"}",
+    "items": {
+      "happy": {
+        "type": "string",
+        "description": "happy 情绪风格指令",
+        "default": ""
+      },
+      "sad": {
+        "type": "string",
+        "description": "sad 情绪风格指令",
+        "default": ""
+      },
+      "angry": {
+        "type": "string",
+        "description": "angry 情绪风格指令",
+        "default": ""
+      },
+      "neutral": {
+        "type": "string",
+        "description": "neutral 情绪风格指令",
+        "default": ""
+      }
+    },
+    "default": {}
+  },
+  "ai_style_director_enabled": {
+    "type": "bool",
+    "description": "启用发送前 AI 导演",
+    "hint": "开启后，会先让 AstrBot LLM 为音频生成隐藏风格指令，并可优化只用于朗读的文本。不会改变最终回复给用户的文字。",
+    "default": false
+  },
+  "ai_style_director_provider_id": {
+    "type": "string",
+    "description": "AI 导演服务商 ID",
+    "hint": "填写 AstrBot AI 服务商 ID 时，将优先使用该服务商生成音频导演方案；留空则使用当前默认 LLM。",
+    "default": ""
+  },
+  "ai_style_director_prompt": {
+    "type": "string",
+    "description": "AI 导演提示词模板",
+    "hint": "留空使用内置模板。可用变量：{max_chars}。建议要求模型输出 JSON，包含 style_context 和 speech_text。",
+    "default": ""
+  },
+  "ai_style_director_mode": {
+    "type": "string",
+    "description": "AI 导演风格模式",
+    "options": ["direct", "hybrid"],
+    "hint": "direct=仅使用 AI 生成的风格指令；hybrid=保留默认/情绪/音色/临时风格并追加 AI 指令。两者都不会污染最终回复文本。",
+    "default": "direct"
+  },
+  "ai_style_director_max_chars": {
+    "type": "int",
+    "description": "AI 风格指令最大长度",
+    "default": 120
+  },
+  "ai_style_director_optimize_text": {
+    "type": "bool",
+    "description": "允许 AI 优化朗读文本",
+    "hint": "开启后，AI 可在不改变原意的前提下剔除无意义语气词、整理重复口头禅，并加入更自然的标点停顿。只影响音频，不影响最终文字回复。",
+    "default": true
+  },
+  "ai_style_director_fallback_to_emotion": {
+    "type": "bool",
+    "description": "AI 导演失败时回退",
+    "hint": "开启后，LLM 生成风格失败时仍使用默认风格、情绪风格和音色风格继续合成；关闭后会中断本次合成并提示错误。",
+    "default": true
+  },
+  "ai_style_director_debug_log": {
+    "type": "bool",
+    "description": "输出 AI 导演调试日志",
+    "hint": "开启后会在 AstrBot 日志输出 provider、音色、情绪、原文摘要、隐藏风格指令和实际朗读文本摘要；不会输出 API Key 或音频内容。",
+    "default": true
+  },
+  "segment_enabled": {
+    "type": "bool",
+    "description": "启用长文本分段合成",
+    "default": true
+  },
+  "segment_threshold_chars": {
+    "type": "int",
+    "description": "分段阈值字符数",
+    "default": 2500
+  },
+  "segment_max_segments": {
+    "type": "int",
+    "description": "最大分段数",
+    "default": 6
+  },
+  "max_text_chars": {
+    "type": "int",
+    "description": "单次 MiMo 请求最大文本长度",
+    "default": 2500
+  },
+  "max_voice_file_mb": {
+    "type": "int",
+    "description": "参考音频最大大小 MB",
+    "default": 10
+  },
+  "max_concurrency": {
+    "type": "int",
+    "description": "最大并发生成数",
+    "default": 2
+  },
+  "audio_transport": {
+    "type": "string",
+    "description": "音频传输方式",
+    "options": ["shared_path", "base64", "path"],
+    "hint": "shared_path 适用于 WSL/Linux 与 Windows NapCat 共享目录；base64 适用于跨系统但 NapCat 支持良好的场景；path 为旧模式。",
+    "default": "base64"
+  },
+  "shared_path_linux": {
+    "type": "string",
+    "description": "Linux 共享目录",
+    "hint": "WSL 默认使用 /mnt/c/Users/Public/mimo_tts_audio；该目录必须能被 Linux 写入。",
+    "default": "/mnt/c/Users/Public/mimo_tts_audio"
+  },
+  "shared_path_windows": {
+    "type": "string",
+    "description": "Windows 共享目录",
+    "hint": "填写 NapCat 所在 Windows 中对应的目录，例如 C:\\Users\\Public\\mimo_tts_audio。",
+    "default": "C:\\Users\\Public\\mimo_tts_audio"
+  },
+  "delivery_segment_chars": {
+    "type": "int",
+    "description": "后台 Base64 每段最大字符数",
+    "hint": "长文本会按此长度分段并发生成，全部完成后按顺序发送。",
+    "default": 500
+  },
+  "base64_max_mb": {
+    "type": "int",
+    "description": "单段 Base64 原始音频上限 MB",
+    "hint": "超过上限时停止发送并提示调低分段字符数。",
+    "default": 8
+  },
+  "reply_mode": {
+    "type": "string",
+    "description": "回复模式",
+    "options": ["audio_only", "text_and_audio", "text_only"],
+    "default": "text_and_audio"
+  },
+  "delivery_mode": {
+    "type": "string",
+    "description": "语音交付模式",
+    "options": ["background", "blocking"],
+    "default": "background"
+  },
+  "background_queue_size": {
+    "type": "int",
+    "description": "后台 TTS 队列容量",
+    "default": 20
+  },
+  "tts_timeout_seconds": {
+    "type": "int",
+    "description": "单次 TTS 请求超时秒数",
+    "default": 120
+  },
+  "tts_direct_connection": {
+    "type": "bool",
+    "description": "MiMo 请求直连（忽略系统及环境代理；关闭后跟随系统代理）",
+    "default": false
+  },
+  "tts_max_retries": {
+    "type": "int",
+    "description": "插件对限流和瞬态错误的最大重试次数",
+    "default": 2
+  },
+  "tts_rate_limit_rpm": {
+    "type": "int",
+    "description": "MiMo 请求每分钟速率上限",
+    "default": 90
+  },
+  "tts_retry_backoff_base_seconds": {
+    "type": "float",
+    "description": "瞬态错误指数退避起始秒数",
+    "default": 1.0
+  },
+  "tts_retry_backoff_max_seconds": {
+    "type": "float",
+    "description": "瞬态错误指数退避最大秒数",
+    "default": 15.0
+  },
+  "circuit_failure_threshold": {
+    "type": "int",
+    "description": "连续瞬态失败触发熔断的次数",
+    "default": 5
+  },
+  "circuit_recovery_seconds": {
+    "type": "int",
+    "description": "熔断后进入半开探测的等待秒数",
+    "default": 60
+  },
+  "async_failure_notice": {
+    "type": "string",
+    "description": "后台任务失败通知策略",
+    "options": ["command_only", "always", "never"],
+    "default": "command_only"
+  },
+  "job_persistence_enabled": {
+    "type": "bool",
+    "description": "持久化后台任务并在插件重启后恢复",
+    "default": true
+  },
+  "job_recovery_max_age_hours": {
+    "type": "int",
+    "description": "允许恢复的后台任务最大年龄（小时）",
+    "default": 24
+  },
+  "job_history_size": {
+    "type": "int",
+    "description": "保留的后台任务历史条数",
+    "default": 100
+  },
+  "background_audio_cleanup": {
+    "type": "string",
+    "description": "后台音频发送成功后的清理策略",
+    "options": ["after_delivery", "retention"],
+    "default": "after_delivery"
+  },
+  "platform_preflight_enabled": {
+    "type": "bool",
+    "description": "提交后台任务前检查平台主动消息能力",
+    "default": true
+  },
+  "live_api_test_enabled": {
+    "type": "bool",
+    "description": "允许 Pages 连接诊断执行真实 MiMo 合成请求",
+    "default": false
+  },
+  "auto_tts_enabled": {
+    "type": "bool",
+    "description": "启用普通 LLM 回复自动语音化",
+    "default": false
+  },
+  "auto_tts_probability": {
+    "type": "string",
+    "description": "普通 LLM 回复自动语音化概率，范围 0-1，例如 0.3",
+    "default": "0.0"
+  },
+  "auto_tts_group_whitelist": {
+    "type": "list",
+    "description": "普通 LLM 自动语音化群聊白名单；留空表示不限制，支持群 ID 或完整会话 ID",
+    "items": {
+      "type": "string"
+    },
+    "default": []
+  },
+  "auto_tts_group_blacklist": {
+    "type": "list",
+    "description": "普通 LLM 自动语音化群聊黑名单；黑名单优先于白名单",
+    "items": {
+      "type": "string"
+    },
+    "default": []
+  },
+  "auto_tts_private_whitelist": {
+    "type": "list",
+    "description": "普通 LLM 自动语音化私聊白名单；留空表示不限制，支持用户 ID 或完整会话 ID",
+    "items": {
+      "type": "string"
+    },
+    "default": []
+  },
+  "auto_tts_private_blacklist": {
+    "type": "list",
+    "description": "普通 LLM 自动语音化私聊黑名单；黑名单优先于白名单",
+    "items": {
+      "type": "string"
+    },
+    "default": []
+  },
+  "admin_users": {
+    "type": "list",
+    "description": "插件管理员用户 ID；管理员不受自动语音黑白名单影响",
+    "items": {
+      "type": "string"
+    },
+    "default": []
+  },
+  "director_text_mode": {
+    "type": "string",
+    "description": "导演正文处理：关闭、仅指令、保留正文加标签或优化文本",
+    "options": ["off", "instructions", "tags", "optimize"],
+    "default": "optimize"
+  },
+  "file_fallback_enabled": {
+    "type": "bool",
+    "description": "语音消息发送失败或当前版本缺少语音组件时，允许回退为文件发送",
+    "default": true
+  },
+  "output_retention_days": {
+    "type": "int",
+    "description": "生成音频文件保留天数，0 表示不按时间清理",
+    "default": 7
+  },
+  "output_max_files": {
+    "type": "int",
+    "description": "生成音频文件最多保留数量，0 表示不按数量清理",
+    "default": 100
+  }
+}

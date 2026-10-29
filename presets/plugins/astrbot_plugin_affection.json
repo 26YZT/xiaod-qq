@@ -1,0 +1,19 @@
+{
+  "default_full_affection_uids": [
+    "${OWNER_QQ}"
+  ],
+  "modify_sensitivity": 30,
+  "emotion_lock_turns": 5,
+  "initial_affection": 50,
+  "initial_libido_other": 25,
+  "initial_aggression_other": 25,
+  "initial_libido_self": 25,
+  "initial_aggression_self": 25,
+  "unconscious_llm": {
+    "provider_id": ""
+  },
+  "decay_duration_hours": 2.0,
+  "idle_check_enabled": true,
+  "idle_threshold_hours": 6.0,
+  "debug_mode": false
+}

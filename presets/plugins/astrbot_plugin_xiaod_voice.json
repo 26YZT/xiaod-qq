@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "private_sessions": [
+    "qq-personal:FriendMessage:${OWNER_QQ}"
+  ],
+  "group_sessions": "${GROUP_SESSIONS}",
+  "private_moments_enabled": true,
+  "private_auto_cooldown_minutes": 30,
+  "private_auto_daily_limit": 3,
+  "synthesis_deadline_seconds": 25,
+  "account_id": "${BOT_QQ}",
+  "owner_id": "${OWNER_QQ}",
+  "platform_id": "qq-personal"
+}

@@ -1,0 +1,52 @@
+{
+  "voice_id": "voice_20261027_205631_7c368589",
+  "reference_sha256": "7940eb2e9270ac58cd955e6271af217d405269f190bfd167e1489292afcd60af",
+  "preset": "L-singing-scheme-2",
+  "songs": [
+    {
+      "id": "dwg_song_0001",
+      "title": "琵琶曲",
+      "source": "audio/dwg_song_0001.wav",
+      "source_sha256": "d9238cbb293d1f03eb20e5f76d1443297ff88c32795b1c5e239fce3044578fed",
+      "duration": 69.976327,
+      "clip_start": 4,
+      "attribution": "尹紫鹭幻想社，YinZilu/da-fei-yu-girl-voice-zh，CC BY-NC 4.0"
+    },
+    {
+      "id": "dwg_song_0002",
+      "title": "朋友的酒",
+      "source": "audio/dwg_song_0002.wav",
+      "source_sha256": "8a307b52ec3e29b36ea8bd1c24680877f855cba320b4c196059dd3b5e3136643",
+      "duration": 80.283605,
+      "clip_start": 0,
+      "attribution": "尹紫鹭幻想社，YinZilu/da-fei-yu-girl-voice-zh，CC BY-NC 4.0"
+    },
+    {
+      "id": "dwg_song_0003",
+      "title": "燕无歇",
+      "source": "audio/dwg_song_0003.wav",
+      "source_sha256": "a0a6eba81f433f471069155502f6c5ca252459c0b820b4ae5dc2c7fa50c38870",
+      "duration": 81.334104,
+      "clip_start": 0,
+      "attribution": "尹紫鹭幻想社，YinZilu/da-fei-yu-girl-voice-zh，CC BY-NC 4.0"
+    },
+    {
+      "id": "dwg_song_0004",
+      "title": "雨爱",
+      "source": "audio/dwg_song_0004.wav",
+      "source_sha256": "c0652d9464dbd1187a71270a79f0b00f971004ba74fb5418d0a1664967b3aea9",
+      "duration": 60.012766,
+      "clip_start": 0,
+      "attribution": "尹紫鹭幻想社，YinZilu/da-fei-yu-girl-voice-zh，CC BY-NC 4.0"
+    },
+    {
+      "id": "dwg_song_0005",
+      "title": "编号89757",
+      "source": "audio/dwg_song_0005.wav",
+      "source_sha256": "dd5c0e3e9ddb5f0d49b2ac56013e214ba6077f26a6dceb0a82f3b05cb44bbdf2",
+      "duration": 193.355941,
+      "clip_start": 0,
+      "attribution": "尹紫鹭幻想社，YinZilu/da-fei-yu-girl-voice-zh，CC BY-NC 4.0"
+    }
+  ]
+}

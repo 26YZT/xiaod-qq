@@ -1,0 +1,78 @@
+{
+  "enabled": {
+    "description": "启用任务",
+    "type": "bool",
+    "default": false
+  },
+  "dry_run": {
+    "description": "只生成草稿，不实际修改QQ",
+    "type": "bool",
+    "default": true
+  },
+  "platform_id": {
+    "description": "QQ机器人适配器ID",
+    "type": "string",
+    "default": "qq-personal"
+  },
+  "account_id": {
+    "description": "允许修改的托管QQ号",
+    "type": "string",
+    "default": ""
+  },
+  "owner_id": {
+    "description": "可私聊预览和查状态的主人QQ",
+    "type": "string",
+    "default": ""
+  },
+  "persona_id": {
+    "description": "使用的人格ID",
+    "type": "string",
+    "default": "可爱鲸鱼娘小D"
+  },
+  "qzone_enabled": {
+    "description": "自动发布好友可见说说",
+    "type": "bool",
+    "default": true
+  },
+  "qzone_weekdays": {
+    "description": "每周发布日",
+    "type": "string",
+    "default": "tue,thu,sat",
+    "hint": "默认每周二、四、六；程序每周最多尝试3次，不在重启时补发。"
+  },
+  "qzone_time": {
+    "description": "说说发布时间",
+    "type": "string",
+    "default": "19:30"
+  },
+  "signature_enabled": {
+    "description": "自动更新个性签名",
+    "type": "bool",
+    "default": false
+  },
+  "signature_sync_off_confirmed": {
+    "description": "已在QQ关闭签名同步到空间",
+    "type": "bool",
+    "default": false,
+    "hint": "未确认关闭时不会自动改签名，以免额外产生空间动态。"
+  },
+  "signature_time": {
+    "description": "签名更新时间",
+    "type": "string",
+    "default": "09:30"
+  },
+  "public_lore_names": {
+    "description": "允许用作公开文案的世界书条目",
+    "type": "list",
+    "default": [
+      "海玻璃的小收藏",
+      "饭团的海苔小讲究",
+      "雨天的小消遣",
+      "解谜时的小较劲",
+      "小抽屉的收纳哲学",
+      "取名字的小偏心",
+      "突然被吓到的嘴硬"
+    ],
+    "hint": "只读取列出的角色条目，不读取群聊或私聊历史；不要选入私人资料条目。"
+  }
+}
