@@ -20,10 +20,10 @@
 下面是维护者提供的真实 QQ 录屏，真人头像已做模糊处理。GIF 无声，完整 MP4 保留演示声音。
 
 <p align="center">
-  <a href="assets/media/qq-demo.mp4"><img src="assets/media/preview.gif" width="300" alt="真实 QQ 点歌、傲娇回复和表情互动演示"></a>
+  <a href="https://github.com/26YZT/xiaod-qq/releases/download/v0.1.0/qq-demo.mp4"><img src="assets/media/preview.gif" width="300" alt="真实 QQ 点歌、傲娇回复和表情互动演示"></a>
 </p>
 
-<p align="center"><a href="assets/media/qq-demo.mp4">▶ 打开 23 秒完整演示视频</a></p>
+<p align="center"><a href="https://github.com/26YZT/xiaod-qq/releases/download/v0.1.0/qq-demo.mp4">下载带声音的完整演示（MP4，23秒）</a></p>
 
 ## 已经串起来的能力
 
